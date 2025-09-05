@@ -1,0 +1,14 @@
+{
+  "LoginPage": {
+    "WelcomeBack": "С возвращением",
+    "SignInToAccount": "Войдите в свой аккаунт",
+    "EmailAddress": "Электронная почта",
+    "Password": "Пароль",
+    "ForgotPassword": "Забыли пароль?",
+    "SignIn": "Войти",
+    "DoNotHaveAccount": "Нет аккаунта? ",
+    "SignUp": "Зарегистрироваться",
+    "ErrorInvalidCredentials": "Неверная почта или пароль. Попробуйте снова",
+    "ErrorEmailExists": "Учетная запись с этой почтой уже существует"
+  }
+}

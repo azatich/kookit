@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
-async function Home() {
+async function HomePage() {
   const session = await getSession();
   if (!session) redirect("/login");
   return (
@@ -21,4 +21,4 @@ async function Home() {
   );
 }
 
-export default Home;
+export default HomePage;

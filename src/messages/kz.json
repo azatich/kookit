@@ -1,0 +1,14 @@
+{
+  "LoginPage": {
+    "WelcomeBack": "Қайта қош келдіңіз",
+    "SignInToAccount": "Аккаунтыңызға кіріңіз",
+    "EmailAddress": "Электрондық пошта",
+    "Password": "Құпия сөз",
+    "ForgotPassword": "Құпия сөзді ұмыттыңыз ба?",
+    "SignIn": "Кіру",
+    "DoNotHaveAccount": "Бұрын тіркелмедіңіз бе? ",
+    "SignUp": "Тіркелу",
+    "ErrorInvalidCredentials": "Электрондық пошта немесе құпия сөз қате. Қайта көріңіз",
+    "ErrorEmailExists": "Бұл поштаға тіркелген аккаунт бар"
+  }
+}

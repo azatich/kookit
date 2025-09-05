@@ -1,0 +1,14 @@
+{
+  "LoginPage": {
+    "WelcomeBack": "Welcome Back",
+    "SignInToAccount": "Sign in to your account",
+    "EmailAddress": "Email Address",
+    "Password": "Password",
+    "ForgotPassword": "Forgot password?",
+    "SignIn": "Sign In",
+    "DoNotHaveAccount": "Do not have an account? ",
+    "SignUp": "Sign up",
+    "ErrorInvalidCredentials": "Invalid email or password. Please, try again",
+    "ErrorEmailExists": "An account with this email already exists"
+  }
+}
