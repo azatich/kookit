@@ -1,5 +1,6 @@
-import { logoutAction } from "@/actions/auth";
-import { Button } from "@/components/ui/button";
+import HomePageFooter from "@/components/HomePageFooter";
+import HomePageMain from "@/components/HomePageMain";
+import Navbar from "@/components/Navbar";
 import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
@@ -7,16 +8,10 @@ async function HomePage() {
   const session = await getSession();
   if (!session) redirect("/login");
   return (
-    <div>
-      Welcome, {session.email}
-      <form action={logoutAction}>
-        <Button
-          variant="outline"
-          className="border-red-500 text-red-500 hover:bg-red-50"
-        >
-          Sign Out
-        </Button>
-      </form>
+    <div className="bg-[#222222] h-screen flex flex-col">
+      <Navbar />
+      <HomePageMain />
+      <HomePageFooter />
     </div>
   );
 }

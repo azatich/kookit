@@ -10,5 +10,22 @@
     "SignUp": "Sign up",
     "ErrorInvalidCredentials": "Invalid email or password. Please, try again",
     "ErrorEmailExists": "An account with this email already exists"
+  },
+
+  "SignupPage": {
+    "CreateAccount": "Create Account",
+    "SignUpToGetStarted": "Sign up to get started",
+    "EmailAddress": "Email Address",
+    "Password": "Password",
+    "ConfirmPassword": "Confirm Password",
+    "PasswordRequirement": "Password must be at least 6 characters long",
+    "CreateAccountButton": "Create Account",
+    "AlreadyHaveAccount": "Already have an account? ",
+    "SignIn": "Sign in",
+    "ErrorEmailExists": "An account with this email already exists. Please try logging in.",
+    "ErrorInvalidEmail": "Please provide a valid email address.",
+    "ErrorWeakPassword": "Password must be at least 6 characters long.",
+    "ErrorPasswordMismatch": "Passwords do not match. Please try again.",
+    "ErrorMissingFields": "Please fill in all required fields."
   }
 }

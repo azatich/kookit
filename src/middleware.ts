@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { verifyJWT } from "./lib/auth";
 
 const PUBLIC_ROUTES = ['/login' ,'signup']
-const AUTH_ROUTES = ['/home']
+const AUTH_ROUTES = ['/home', '/recipes']
 
 export async function middleware(request: NextRequest){
     const token = request.cookies.get('token')?.value

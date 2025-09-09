@@ -55,7 +55,7 @@ export const loginAction = async (formData: FormData) => {
     maxAge: 60 * 60 * 24,
     path: "/",
   });
-  redirect("/");
+  redirect("/home");
 };
 
 

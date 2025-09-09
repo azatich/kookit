@@ -10,5 +10,22 @@
     "SignUp": "Зарегистрироваться",
     "ErrorInvalidCredentials": "Неверная почта или пароль. Попробуйте снова",
     "ErrorEmailExists": "Учетная запись с этой почтой уже существует"
+  },
+
+  "SignupPage": {
+    "CreateAccount": "Создать аккаунт",
+    "SignUpToGetStarted": "Зарегистрируйтесь, чтобы начать",
+    "EmailAddress": "Электронная почта",
+    "Password": "Пароль",
+    "ConfirmPassword": "Подтвердите пароль",
+    "PasswordRequirement": "Пароль должен содержать минимум 6 символов",
+    "CreateAccountButton": "Создать аккаунт",
+    "AlreadyHaveAccount": "Уже есть аккаунт? ",
+    "SignIn": "Войти",
+    "ErrorEmailExists": "Учетная запись с таким email уже существует. Пожалуйста, войдите.",
+    "ErrorInvalidEmail": "Пожалуйста, введите корректный email.",
+    "ErrorWeakPassword": "Пароль должен содержать минимум 6 символов.",
+    "ErrorPasswordMismatch": "Пароли не совпадают. Попробуйте снова.",
+    "ErrorMissingFields": "Пожалуйста, заполните все обязательные поля."
   }
 }

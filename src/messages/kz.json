@@ -10,5 +10,22 @@
     "SignUp": "Тіркелу",
     "ErrorInvalidCredentials": "Электрондық пошта немесе құпия сөз қате. Қайта көріңіз",
     "ErrorEmailExists": "Бұл поштаға тіркелген аккаунт бар"
+  },
+
+  "SignupPage": {
+    "CreateAccount": "Аккаунт құру",
+    "SignUpToGetStarted": "Бастау үшін тіркеліңіз",
+    "EmailAddress": "Электрондық пошта",
+    "Password": "Құпиясөз",
+    "ConfirmPassword": "Құпиясөзді растаңыз",
+    "PasswordRequirement": "Құпиясөз кемінде 6 таңбадан тұруы керек",
+    "CreateAccountButton": "Аккаунт құру",
+    "AlreadyHaveAccount": "Поштаңыз бар ма? ",
+    "SignIn": "Кіру",
+    "ErrorEmailExists": "Бұл пошта бұрын тіркелген. Кіруді қолданыңыз.",
+    "ErrorInvalidEmail": "Жарамды электрондық поштаны енгізіңіз.",
+    "ErrorWeakPassword": "Құпиясөз кемінде 6 таңбадан тұруы керек.",
+    "ErrorPasswordMismatch": "Құпиясөздер сәйкес келмейді. Қайтадан көріңіз.",
+    "ErrorMissingFields": "Барлық міндетті өрістерді толтырыңыз."
   }
 }
