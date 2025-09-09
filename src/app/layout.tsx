@@ -3,14 +3,15 @@ import { NextIntlClientProvider } from "next-intl";
 import "./globals.css";
 import connectDb from "@/lib/db";
 import { getLocale, getMessages } from "next-intl/server";
-import { Inter } from "next/font/google";
+import { Inter, Pacifico } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "Kookit",
   description: "Cooking app",
 };
 
-const inter = Inter({subsets: ['latin'], weight: ['400', '700']})
+const inter = Inter({ subsets: ["latin"], weight: ["400", "700"] });
+const pacifico = Pacifico({ subsets: ["latin"], weight: ["400"] });
 
 export default async function RootLayout({
   children,
@@ -22,8 +23,8 @@ export default async function RootLayout({
   const locale = await getLocale();
 
   return (
-    <html lang={locale}>
-      <body className={inter.className}>
+    <html lang={locale} className="dark">
+      <body className={`${inter.className} bg-[#222222] min-h-screen`}>
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

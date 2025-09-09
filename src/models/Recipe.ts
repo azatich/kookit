@@ -1,17 +1,5 @@
-import mongoose, { Schema, Document } from "mongoose";
-
-export interface IRecipe extends Document {
-  title: string;
-  rating?: number;
-  description?: string;
-  authorId: string;
-  postedDate: Date;
-  imageURL?: string;
-  prepTime?: string;
-  cookTime?: string;
-  ingredients: string[];
-  directions: string[];
-}
+import { IRecipe } from "@/types/RecipeItem";
+import mongoose, { Schema } from "mongoose";
 
 const RecipeSchema: Schema = new Schema({
   title: { type: String, required: true },
@@ -20,6 +8,7 @@ const RecipeSchema: Schema = new Schema({
   authorId: { type: String, required: true },
   postedDate: { type: Date, default: Date.now },
   imageURL: { type: String },
+  imagePublicId: {type: String},
   prepTime: { type: String },
   cookTime: { type: String },
   ingredients: [{ type: String, required: true }],

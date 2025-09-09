@@ -1,20 +1,42 @@
-'use client'
+"use client";
 
-import { RecipeItem } from "@/types/RecipeItem";
 import Image from "next/image";
 import Link from "next/link";
 import { Star } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { IRecipe } from "@/types/RecipeItem";
+import { getUser } from "@/lib/helpers/api";
 
-const RecipeCard = ({ recipe }: { recipe: RecipeItem }) => {
+const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [authorName, setAuthorName] = useState<string>("");
+
+  useEffect(() => {
+    async function loadUser() {
+      try {
+        const data = await getUser(recipe.authorId);
+        setAuthorName(data.email);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    loadUser();
+  }, [recipe.authorId]);
 
   return (
-    <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className="bg-[#2f2f2f] rounded-2xl overflow-hidden shadow-lg">
-      <Link href={`/recipes/${recipe.id}`}>
-        <div className={`relative w-full h-56 ${isHovered && "scale-105 transition duration-300"}`}>
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="bg-[#2f2f2f] rounded-2xl overflow-hidden shadow-lg"
+    >
+      <Link href={`/recipes/${recipe._id}`}>
+        <div
+          className={`relative w-full h-56 ${
+            isHovered && "scale-105 transition duration-300"
+          }`}
+        >
           <Image
-            src={recipe.imageURL}
+            src={recipe.imageURL || "/images/recipeThumbnail.png"}
             alt={recipe.title}
             fill
             className="object-cover"
@@ -24,7 +46,7 @@ const RecipeCard = ({ recipe }: { recipe: RecipeItem }) => {
 
       <div className="p-4">
         {/* Title */}
-        <Link href={`/recipes/${recipe.id}`}>
+        <Link href={`/recipes/${recipe._id}`}>
           <h2 className="text-xl font-bold text-white hover:text-orange-400 transition">
             {recipe.title}
           </h2>
@@ -36,7 +58,13 @@ const RecipeCard = ({ recipe }: { recipe: RecipeItem }) => {
             <Star
               key={i}
               size={16}
-              className={i < recipe.rating ? "fill-yellow-400" : ""}
+              className={
+                recipe.rating
+                  ? i < recipe.rating
+                    ? "fill-yellow-400"
+                    : ""
+                  : ""
+              }
             />
           ))}
           <span className="ml-2 text-sm text-gray-400">{recipe.rating}/5</span>
@@ -44,8 +72,8 @@ const RecipeCard = ({ recipe }: { recipe: RecipeItem }) => {
 
         {/* Author & Date */}
         <div className="text-sm text-gray-400 mt-2">
-          By <span className="text-orange-400">{recipe.authorId}</span> ·{" "}
-          {recipe.postedDate}
+          By <span className="text-orange-400">{authorName || "Unknown"}</span>{" "}
+          · {new Date(recipe.postedDate).toLocaleDateString()}
         </div>
 
         {/* Description (short) */}
@@ -55,8 +83,8 @@ const RecipeCard = ({ recipe }: { recipe: RecipeItem }) => {
 
         {/* Prep & Cook Times */}
         <div className="flex justify-between mt-4 text-gray-300 text-sm">
-          <span>⏱ Prep: {recipe.prepTime}</span>
-          <span>🔥 Cook: {recipe.cookTime}</span>
+          <span>⏱ Prep: {recipe.prepTime} min</span>
+          <span>🔥 Cook: {recipe.cookTime} min</span>
         </div>
       </div>
     </div>
