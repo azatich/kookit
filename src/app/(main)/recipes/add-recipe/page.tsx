@@ -17,6 +17,8 @@ const AddRecipe = () => {
   const [description, setDescription] = useState<string>("");
   const [prepTime, setPrepTime] = useState<number>(0);
   const [cookTime, setCookTime] = useState<number>(0);
+  const [prepTimeError, setPrepTimeError] = useState<string>("");
+  const [cookTimeError, setCookTimeError] = useState<string>("");
   const [ingredients, setIngredients] = useState<string[]>([""]);
   const [directions, setDirections] = useState<string[]>([""]);
   const [isLoadingAddRecipe, setIsLoadingAddRecipe] = useState<boolean>(false);
@@ -25,6 +27,16 @@ const AddRecipe = () => {
     e.preventDefault();
 
     setIsLoadingAddRecipe(true);
+
+    // Validate times before proceeding
+    const isPrepInvalid = Number.isNaN(prepTime) || prepTime < 0;
+    const isCookInvalid = Number.isNaN(cookTime) || cookTime < 0;
+    if (isPrepInvalid || isCookInvalid) {
+      if (isPrepInvalid) setPrepTimeError("Prep time must be a non-negative number");
+      if (isCookInvalid) setCookTimeError("Cook time must be a non-negative number");
+      setIsLoadingAddRecipe(false);
+      return;
+    }
 
     if (!image) {
       console.error("⚠️ No image selected");
@@ -72,6 +84,8 @@ const AddRecipe = () => {
         setCookTime(0)
         setIngredients([])
         setDirections([]);
+        setPrepTimeError("");
+        setCookTimeError("");
       } else {
         console.error("❌ Failed to submit recipe");
       }
@@ -210,24 +224,60 @@ const AddRecipe = () => {
                   Prep Time (In minutes)
                 </label>
                 <input
-                  type="text"
+                  type="number"
+                  inputMode="numeric"
+                  min={0}
+                  step={1}
                   value={prepTime}
-                  onChange={(e) => setPrepTime(parseInt(e.target.value))}
+                  onChange={(e) => {
+                    const next = e.currentTarget.valueAsNumber;
+                    if (Number.isNaN(next)) {
+                      setPrepTimeError("Please enter a number");
+                      return;
+                    }
+                    if (next < 0) {
+                      setPrepTimeError("Prep time must be a non-negative number");
+                    } else {
+                      setPrepTimeError("");
+                    }
+                    setPrepTime(next);
+                  }}
                   placeholder="e.g., 15"
-                  className="w-full px-4 py-2 rounded-lg border border-white"
+                  className={`w-full px-4 py-2 rounded-lg border ${prepTimeError ? "border-red-400" : "border-white"}`}
                 />
+                {prepTimeError && (
+                  <p className="mt-1 text-sm text-red-400">{prepTimeError}</p>
+                )}
               </div>
               <div>
                 <label className="block mb-2 uppercase font-semibold">
                   Cook Time (In minutes)
                 </label>
                 <input
-                  type="text"
+                  type="number"
+                  inputMode="numeric"
+                  min={0}
+                  step={1}
                   value={cookTime}
-                  onChange={(e) => setCookTime(parseInt(e.target.value))}
+                  onChange={(e) => {
+                    const next = e.currentTarget.valueAsNumber;
+                    if (Number.isNaN(next)) {
+                      setCookTimeError("Please enter a number");
+                      return;
+                    }
+                    if (next < 0) {
+                      setCookTimeError("Cook time must be a non-negative number");
+                    } else {
+                      setCookTimeError("");
+                    }
+                    setCookTime(next);
+                  }}
                   placeholder="e.g., 120"
-                  className="w-full px-4 py-2 rounded-lg border border-white"
+                  className={`w-full px-4 py-2 rounded-lg border ${cookTimeError ? "border-red-400" : "border-white"}`}
                 />
+                {cookTimeError && (
+                  <p className="mt-1 text-sm text-red-400">{cookTimeError}</p>
+                )}
               </div>
             </div>
             <div>

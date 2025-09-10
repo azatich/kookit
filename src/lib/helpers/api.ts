@@ -1,4 +1,6 @@
-import { SessionUser } from "@/types/SessionUser";
+// USER ACTIONS
+
+import { User } from "@/types/SessionUser";
 
 export async function getUser(userId: string) {
   const res = await fetch(`/api/users/${userId}`);
@@ -6,11 +8,19 @@ export async function getUser(userId: string) {
   return res.json();
 }
 
-export async function getSessionUser(): Promise<SessionUser> {
+export async function getSessionUser(): Promise<User> {
   const res = await fetch(`/api/users/me`);
   if (!res.ok) throw new Error("Failed to fetch session user");
   return res.json();
 }
+
+export async function getUserRecipes(userId: string) {
+  const res = await fetch(`/api/recipes/user/${userId}`); // /api/recipes/user/665645645645645645645645
+  if (!res.ok) throw new Error("Failed to fetch user recipes");
+  return res.json();
+}
+
+// RECIPE ACTIONS
 
 export async function getRecipes() {
   const res = await fetch("/api/recipes");
@@ -22,4 +32,14 @@ export async function getRecipeById(recipeId: string) {
   const res = await fetch(`/api/recipes/${recipeId}`);
   if (!res.ok) throw new Error("Failed to fetch recipe");
   return res.json();
+}
+
+export async function updateRecipeRating(recipeId: string, val: number) {
+  const res = await fetch(`/api/recipes/${recipeId}/rating`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ rating: val }),
+  });
+  if (!res.ok) throw new Error("Failed to update rating");
+  return res.json() as Promise<{ ok: true; ratingPairs: [string, number][]; average: number }>;
 }

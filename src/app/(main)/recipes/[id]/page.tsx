@@ -4,15 +4,15 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { getRecipeById, getSessionUser } from "@/lib/helpers/api";
+import { getRecipeById, getUser } from "@/lib/helpers/api";
 import { IRecipe } from "@/types/RecipeItem";
-import { SessionUser } from "@/types/SessionUser";
+import { User } from "@/types/SessionUser";
 
 const RecipePage = () => {
   const params = useParams();
   const id = params?.id as string;
   const [recipe, setRecipe] = useState<IRecipe | null>(null);
-  const [currentUser, setCurrentUser] = useState<SessionUser | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -31,11 +31,12 @@ const RecipePage = () => {
 
   useEffect(() => {
     async function loadUser() {
-      const data = await getSessionUser();
+      if (!recipe?.authorId) return;
+      const data = await getUser(recipe.authorId);
       setCurrentUser(data);
     }
     loadUser();
-  }, []);
+  }, [recipe?.authorId]);
 
   async function handleDeleteRecipe() {
     if (!recipe?._id) return;
@@ -114,8 +115,8 @@ const RecipePage = () => {
     );
   }
 
-  if (!recipe) return <div className="text-white p-10">Recipe not found</div>;
-
+  if (!recipe) return <div className="text-white p-10">Recipe not found</div>;  
+  
   return (
     <div className="text-white px-6 py-10">
       {/* Header */}
@@ -127,7 +128,7 @@ const RecipePage = () => {
           >
             ← Back to Recipes
           </Link>
-          {currentUser && currentUser.userId === recipe.authorId && (
+          {currentUser && currentUser._id === recipe.authorId && (
             <button
               onClick={handleDeleteRecipe}
               className="bg-red-500 text-white px-4 py-2 rounded-lg"
@@ -148,7 +149,12 @@ const RecipePage = () => {
           {recipe.postedDate && (
             <span>📅 {new Date(recipe.postedDate).toLocaleDateString()}</span>
           )}
-          {recipe.rating && <span>⭐ {recipe.rating}/5</span>}
+          {Array.isArray(recipe.rating) && recipe.rating.length > 0 && (() => {
+            const valid = recipe.rating.filter(([uid, r]) => uid !== "legacy" && (r || 0) > 0);
+            if (valid.length === 0) return null;
+            const avg = valid.reduce((sum, [, r]) => sum + (r || 0), 0) / valid.length;
+            return <span>⭐{avg.toFixed(1)}/5</span>;
+          })()}
         </div>
       </div>
 

@@ -2,7 +2,7 @@ import React from 'react'
 
 const BackgroundCookingIcons = () => {
   return (
-    <div className="absolute inset-0 opacity-10">
+    <div className="absolute inset-0 opacity-10 z-0">
         {/* Floating cooking utensils */}
         <div
           className="absolute top-20 left-10 text-6xl animate-bounce"

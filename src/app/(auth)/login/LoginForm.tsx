@@ -126,7 +126,7 @@ export default function LoginForm() {
                 type="password"
                 required
                 placeholder="••••••••"
-                className="py-5 px-4 text-base rounded-xl"
+                className="py-5 px-4 text-base rounded-xl text-black"
               />
             </div>
 

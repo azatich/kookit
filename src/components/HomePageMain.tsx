@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { Akshar } from "next/font/google";
-import BurgerRating from "./BurgerRating";
+import BurgerRating from "./BurgerRatingUI";
 
 const akshar = Akshar({ subsets: ["latin"], weight: ["400", "700"] });
 

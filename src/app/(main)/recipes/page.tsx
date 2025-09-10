@@ -31,7 +31,7 @@ const RecipePage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] relative overflow-hidden">
       {/* Background Cooking Icons */}
-      <BackgroundCookingIcons />
+      {/* <BackgroundCookingIcons /> */}
 
       <Navbar />
 

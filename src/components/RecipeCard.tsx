@@ -5,11 +5,22 @@ import Link from "next/link";
 import { Star } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { IRecipe } from "@/types/RecipeItem";
-import { getUser } from "@/lib/helpers/api";
+import { getUser, updateRecipeRating } from "@/lib/helpers/api";
+import Rating from "./Rating";
 
 const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [authorName, setAuthorName] = useState<string>("");
+  const [currentRating, setCurrentRating] = useState<number>(() => {
+    const ratings = recipe.rating;
+    if (Array.isArray(ratings) && ratings.length > 0) {
+      const valid = ratings.filter(([uid, r]) => uid !== "legacy" && (r || 0) > 0);
+      if (valid.length === 0) return 0;
+      const avg = valid.reduce((sum, [, r]) => sum + (r || 0), 0) / valid.length;
+      return Math.round(avg);
+    }
+    return 0;
+  });
 
   useEffect(() => {
     async function loadUser() {
@@ -53,21 +64,21 @@ const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
         </Link>
 
         {/* Rating */}
-        <div className="flex items-center gap-1 mt-2 text-yellow-400">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Star
-              key={i}
-              size={16}
-              className={
-                recipe.rating
-                  ? i < recipe.rating
-                    ? "fill-yellow-400"
-                    : ""
-                  : ""
+        <div className="mt-2">
+        <Rating
+            value={currentRating}
+            onChange={async (val) => {
+              setCurrentRating(val);
+              try {
+                const res = await updateRecipeRating(recipe._id, val);
+                setCurrentRating(Math.round(res.average));
+              } catch (err) {
+                console.error(err);
               }
-            />
-          ))}
-          <span className="ml-2 text-sm text-gray-400">{recipe.rating}/5</span>
+            }}
+            size={16}
+          />
+          <span className="ml-2 text-sm text-gray-400">{currentRating}/5</span>
         </div>
 
         {/* Author & Date */}

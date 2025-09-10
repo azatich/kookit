@@ -1,7 +1,7 @@
 export interface IRecipe {
   _id: string,
   title: string;
-  rating?: number;
+  rating?: [string, number][];
   description?: string;
   authorId: string;
   postedDate: Date;

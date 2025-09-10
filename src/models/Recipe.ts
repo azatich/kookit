@@ -3,7 +3,7 @@ import mongoose, { Schema } from "mongoose";
 
 const RecipeSchema: Schema = new Schema({
   title: { type: String, required: true },
-  rating: { type: Number, default: 0 },
+  rating: { type: [Schema.Types.Mixed], default: [] },
   description: { type: String, required: true },
   authorId: { type: String, required: true },
   postedDate: { type: Date, default: Date.now },
@@ -15,4 +15,8 @@ const RecipeSchema: Schema = new Schema({
   directions: [{ type: String, required: true }],
 });
 
-export default mongoose.models.Recipe || mongoose.model<IRecipe>("Recipe", RecipeSchema);
+
+if (mongoose.models.Recipe) {
+  delete mongoose.models.Recipe;
+}
+export default mongoose.model<IRecipe>("Recipe", RecipeSchema);
