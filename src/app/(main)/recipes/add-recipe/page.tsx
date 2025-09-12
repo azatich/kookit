@@ -3,12 +3,10 @@
 import React, { ChangeEvent, useState } from "react";
 
 import { CiCircleRemove } from "react-icons/ci";
-import { Caprasimo } from "next/font/google";
 import { PlusCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
-const caprasimo = Caprasimo({ subsets: ["latin"], weight: ["400"] });
+import { useTranslations } from "next-intl";
 
 const AddRecipe = () => {
   const [title, setTitle] = useState<string>("");
@@ -22,13 +20,13 @@ const AddRecipe = () => {
   const [ingredients, setIngredients] = useState<string[]>([""]);
   const [directions, setDirections] = useState<string[]>([""]);
   const [isLoadingAddRecipe, setIsLoadingAddRecipe] = useState<boolean>(false);
+  const t = useTranslations('RecipesPage')
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     setIsLoadingAddRecipe(true);
 
-    // Validate times before proceeding
     const isPrepInvalid = Number.isNaN(prepTime) || prepTime < 0;
     const isCookInvalid = Number.isNaN(cookTime) || cookTime < 0;
     if (isPrepInvalid || isCookInvalid) {
@@ -146,21 +144,21 @@ const AddRecipe = () => {
           href="/recipes"
           className="inline-block bg-[#ffa500] px-4 py-2 my-4 rounded-lg text-white hover:bg-amber-600 transition duration-300"
         >
-          Go to recipes
+          {t('AddRecipe.GoToRecipes')}
         </Link>
 
         <div className="py-4">
           <h1
-            className={`${caprasimo.className} text-center text-4xl font-bold uppercase`}
+            className={`font-pacifico text-center text-4xl font-bold uppercase`}
           >
-            Share your recipe 🍔
+            {t('ShareYourRecipe')} 🍔
           </h1>
         </div>
         <div>
           <form onSubmit={onSubmit} className="flex flex-col gap-6">
             <div>
               <label className="block mb-2 uppercase font-semibold">
-                Title
+                {t('AddRecipe.Title')}
               </label>
               <input
                 type="text"
@@ -172,14 +170,14 @@ const AddRecipe = () => {
               />
             </div>
             <div className="w-full border border-gray-300 rounded-lg p-6 text-center shadow-sm">
-              <h2 className="text-lg font-semibold text-white">Upload Image</h2>
+              <h2 className="text-lg font-semibold text-white">{t('AddRecipe.UploadImage')}</h2>
 
               <div className="mt-6">
                 <label
                   htmlFor="fileUpload"
                   className="cursor-pointer px-6 py-2 bg-amber-500 text-white rounded-md hover:bg-amber-700 transition duration-300"
                 >
-                  Choose File
+                  {t('AddRecipe.ChooseFile')}
                 </label>
                 <input
                   id="fileUpload"
@@ -206,12 +204,12 @@ const AddRecipe = () => {
 
             <div>
               <label className="block mb-2 uppercase font-semibold">
-                Description (Optional)
+              {t('AddRecipe.Description')}
               </label>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Short description..."
+                placeholder={t('AddRecipe.ShortDescription')}
                 className="w-full px-4 py-2 rounded-lg border border-white"
                 rows={4}
               />
@@ -221,7 +219,7 @@ const AddRecipe = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block mb-2 uppercase font-semibold">
-                  Prep Time (In minutes)
+                {t('AddRecipe.PrepTime')}
                 </label>
                 <input
                   type="number"
@@ -251,7 +249,7 @@ const AddRecipe = () => {
               </div>
               <div>
                 <label className="block mb-2 uppercase font-semibold">
-                  Cook Time (In minutes)
+                {t('AddRecipe.CookTime')}
                 </label>
                 <input
                   type="number"
@@ -282,13 +280,13 @@ const AddRecipe = () => {
             </div>
             <div>
               <div className="flex items-center justify-between">
-                <label className="block mb-2 font-semibold">Ingredients</label>
+                <label className="block mb-2 font-semibold">{t('AddRecipe.Ingredients')}</label>
                 <button
                   onClick={addIngredient}
                   type="button"
                   className="flex items-center gap-2 text-amber-500 hover:text-amber-600"
                 >
-                  <PlusCircle className="w-5 h-5" /> Add Ingredient
+                  <PlusCircle className="w-5 h-5" /> {t('AddRecipe.AddIngredient')}
                 </button>
               </div>
               {ingredients.map((ingredient, i) => (
@@ -301,7 +299,7 @@ const AddRecipe = () => {
                     value={ingredient}
                     onChange={(e) => updateIngredient(i, e.target.value)}
                     className="flex-1 bg-transparent outline-none text-white"
-                    placeholder={`Ingredient ${i + 1}`}
+                    placeholder={`${t('AddRecipe.Ingredient')} ${i + 1}`}
                     required
                   />
                   <button type="button" onClick={() => removeIngredient(i)}>
@@ -312,13 +310,13 @@ const AddRecipe = () => {
             </div>
             <div>
               <div className="flex items-center justify-between">
-                <label className="block mb-2 font-semibold">Steps</label>
+                <label className="block mb-2 font-semibold">{t('AddRecipe.Steps')}</label>
                 <button
                   onClick={addStep}
                   type="button"
                   className="flex items-center gap-2 text-amber-500 hover:text-amber-600"
                 >
-                  <PlusCircle className="w-5 h-5" /> Add Step
+                  <PlusCircle className="w-5 h-5" /> {t('AddRecipe.AddStep')}
                 </button>
               </div>
               {directions.map((direction, i) => (
@@ -364,11 +362,11 @@ const AddRecipe = () => {
                         fill="currentFill"
                       />
                     </svg>
-                    <span className="sr-only">Loading...</span>
+                    <span className="sr-only">{t('AddRecipe.AddingRecipe')}</span>
                   </div>
                 </div>
               ) : (
-                "Add recipe"
+                `${t('AddRecipe.AddRecipe')}`
               )}
             </button>
           </form>

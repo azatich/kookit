@@ -1,11 +1,13 @@
 {
   "LoginPage": {
+    "SelectLanguage": "Тілді таңдаңыз",
     "WelcomeBack": "Қайта қош келдіңіз",
     "SignInToAccount": "Аккаунтыңызға кіріңіз",
     "EmailAddress": "Электрондық пошта",
     "Password": "Құпия сөз",
     "ForgotPassword": "Құпия сөзді ұмыттыңыз ба?",
     "SignIn": "Кіру",
+    "SigningIn": "Кіруде...",
     "DoNotHaveAccount": "Бұрын тіркелмедіңіз бе? ",
     "SignUp": "Тіркелу",
     "ErrorInvalidCredentials": "Электрондық пошта немесе құпия сөз қате. Қайта көріңіз",
@@ -13,6 +15,7 @@
   },
 
   "SignupPage": {
+    "SelectLanguage": "Тілді таңдаңыз",
     "CreateAccount": "Аккаунт құру",
     "SignUpToGetStarted": "Бастау үшін тіркеліңіз",
     "EmailAddress": "Электрондық пошта",
@@ -27,5 +30,52 @@
     "ErrorWeakPassword": "Құпиясөз кемінде 6 таңбадан тұруы керек.",
     "ErrorPasswordMismatch": "Құпиясөздер сәйкес келмейді. Қайтадан көріңіз.",
     "ErrorMissingFields": "Барлық міндетті өрістерді толтырыңыз."
+  },
+
+  "Navbar": {
+    "Home": "Басты бет",
+    "Recipes": "Рецептілер",
+    "AboutUs": "Біз туралы",
+    "YourPosts": "Сіздің посттарыңыз"
+  },
+
+  "HomePage": {
+    "MainTitle1": "Арманыңдағы",
+    "MainTitle2": "Тамаққа",
+    "MainTitle3": "Бізбен қол жеткіз",
+    "BurgerUI": "Бургер",
+    "Footer": {
+      "Review": "Пікір",
+      "NewDailyRecipes": "Күнделікті рецептілер",
+      "HappyCustomers": "Бақытты клиенттер",
+      "Rating": "Баға",
+      "BestDeliciousFood": "Ең дәмді тағамдар",
+      "WeHaveBestRecipes": "Бізде Тек Қана Ең Жақсы Тағам Рецептілері"
+    }
+  },
+
+  "RecipesPage": {
+    "ExploreRecipes": "Рецептілермен танысыңыз",
+    "ShareYourRecipe": "Өзіңіздің рецептіңізбен бөлісіңіз",
+    "By": "Иесі",
+    "Cook": "Пісіру",
+    "Prep": "Дайындау",
+    "AddRecipe": {
+      "GoToRecipes": "Рецептілерге қайту",
+      "Title": "Аты",
+      "UploadImage": "Сурет жүктеу",
+      "ChooseFile": "Файлды таңдау",
+      "Description": "Сипаттама (міндетті емес)",
+      "ShortDescription": "Қысқаша сипаттама",
+      "PrepTime": "Дайындалу уақыты (минутпен)",
+      "CookTime": "Пісіру уақыты (минутпен)",
+      "Ingredients": "Ингредиенттер",
+      "Ingredient": "Ингредиент",
+      "AddIngredient": "Ингредиент қосу",
+      "Steps": "Қадамдар",
+      "AddStep": "Қадам қосу",
+      "AddRecipe": "Рецептіні қосу",
+      "AddingRecipe": "Қосылуда..."
+    }
   }
 }

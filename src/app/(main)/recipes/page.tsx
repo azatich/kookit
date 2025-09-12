@@ -5,12 +5,14 @@ import Navbar from "@/components/Navbar";
 import RecipeCard from "@/components/RecipeCard";
 import { getRecipes } from "@/lib/helpers/api";
 import { IRecipe } from "@/types/RecipeItem";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const RecipePage = () => {
   const [recipes, setRecipes] = useState<IRecipe[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const t = useTranslations('RecipesPage')
 
   useEffect(() => {
     async function loadRecipes() {
@@ -37,7 +39,7 @@ const RecipePage = () => {
 
       <div className="max-w-7xl mx-auto p-4 relative z-10">
         <h1 className="text-4xl font-pacifico text-[#FF7A00] mb-10 text-center">
-          Explore Recipes
+          {t('ExploreRecipes')}
         </h1>
 
         <Link
@@ -50,7 +52,7 @@ const RecipePage = () => {
             </span>
             <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
           </div>
-          <span className="font-pacifico text-xl">Share Your Recipe</span>
+          <span className="font-pacifico text-xl">{t('ShareYourRecipe')}</span>
           <div className="ml-2 group-hover:translate-x-1 transition-transform duration-300">
             <svg
               className="w-5 h-5"

@@ -6,20 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { signUpAction } from "@/actions/auth";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
-
-// interface SignUpPageProps {
-//     searchParams?: Promise<{error?: string}>
-// }
+import SelectLanguage from "@/components/SelectLanguage";
 
 export default function SignupForm() {
-  const [locale, setLocale] = useState<string>("");
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
-  const router = useRouter();
   const t = useTranslations("SignupPage");
 
   const errorMessages = {
@@ -34,59 +27,13 @@ export default function SignupForm() {
     ? errorMessages[error as keyof typeof errorMessages]
     : null;
 
-  useEffect(() => {
-    const cookieLocale = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("MYNEXTAPP_LOCALE="))
-      ?.split("=")[1];
-    if (cookieLocale) {
-      setLocale(cookieLocale);
-    } else {
-      const browserLocale = navigator.language.slice(0, 2);
-      setLocale(browserLocale);
-      document.cookie = `MYNEXTAPP_LOCALE=${browserLocale};`;
-      router.refresh();
-    }
-  }, [router]);
-
-  const changeLocale = (newLocale: string) => {
-    setLocale(newLocale);
-    document.cookie = `MYNEXTAPP_LOCALE=${newLocale};`;
-    router.refresh();
-  };
-
   return (
     <div className="min-h-screen bg-[#222222] flex items-center justify-center p-4">
       <Card className="w-full max-w-md shadow-xl rounded-2xl border-0 bg-white backdrop-blur-sm">
         <CardHeader className="text-center">
           <CardTitle className="flex justify-between text-3xl font-bold text-gray-800">
             <div>{t("CreateAccount")}</div>
-            <div className="flex gap-2 text-lg">
-              <button
-                onClick={() => changeLocale("en")}
-                className={`border border-black px-2 rounded-md ${
-                  locale === "en" && "bg-black text-white"
-                }`}
-              >
-                en
-              </button>
-              <button
-                onClick={() => changeLocale("ru")}
-                className={`border border-black px-2 rounded-md ${
-                  locale === "ru" && "bg-black text-white"
-                }`}
-              >
-                ru
-              </button>
-              <button
-                onClick={() => changeLocale("kz")}
-                className={`border border-black px-2 rounded-md ${
-                  locale === "kz" && "bg-black text-white"
-                }`}
-              >
-                kz
-              </button>
-            </div>
+            <SelectLanguage />
           </CardTitle>
           <p className="text-gray-500 mt-2">{t("SignUpToGetStarted")}</p>
         </CardHeader>

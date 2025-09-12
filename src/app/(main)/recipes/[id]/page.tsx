@@ -4,15 +4,15 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { getRecipeById, getUser } from "@/lib/helpers/api";
+import { getRecipeById, getSessionUser, getUser } from "@/lib/helpers/api";
 import { IRecipe } from "@/types/RecipeItem";
-import { User } from "@/types/SessionUser";
+import { SessionUser } from "@/types/SessionUser";
 
 const RecipePage = () => {
   const params = useParams();
   const id = params?.id as string;
   const [recipe, setRecipe] = useState<IRecipe | null>(null);
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<SessionUser | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const RecipePage = () => {
   useEffect(() => {
     async function loadUser() {
       if (!recipe?.authorId) return;
-      const data = await getUser(recipe.authorId);
+      const data = await getSessionUser();
       setCurrentUser(data);
     }
     loadUser();
@@ -128,7 +128,7 @@ const RecipePage = () => {
           >
             ← Back to Recipes
           </Link>
-          {currentUser && currentUser._id === recipe.authorId && (
+          {currentUser && currentUser.userId === recipe.authorId && (
             <button
               onClick={handleDeleteRecipe}
               className="bg-red-500 text-white px-4 py-2 rounded-lg"
@@ -144,7 +144,7 @@ const RecipePage = () => {
         <p className="mt-2 text-gray-300">{recipe.description}</p>
         <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-gray-400">
           {recipe.authorId && (
-            <span>👨‍🍳 By {currentUser ? currentUser.email : "Unknown"}</span>
+            <span>👨‍🍳 By {recipe.authorId}</span>
           )}
           {recipe.postedDate && (
             <span>📅 {new Date(recipe.postedDate).toLocaleDateString()}</span>

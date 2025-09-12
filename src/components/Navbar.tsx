@@ -8,20 +8,23 @@ import { IoMdLogOut } from "react-icons/io";
 import { FiBookmark } from "react-icons/fi";
 import { usePathname, useRouter } from "next/navigation";
 import { CircleUserRound, Menu, X } from "lucide-react";
-
-const navLinks = [
-  { name: "Home", href: "/home" },
-  { name: "Recipes", href: "/recipes" },
-  { name: "About us", href: "/about-us" },
-  { name: "Your posts", href: "/your-posts" },
-];
+import SelectLanguage from "./SelectLanguage";
+import { useTranslations } from "next-intl";
 
 const Navbar = () => {
   const pathName = usePathname();
   const router = useRouter();
+  const t = useTranslations('Navbar');
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const closeMobile = () => setIsMobileOpen(false);
+
+  const navLinks = [
+    { name: t('Home'), href: "/home" },
+    { name: t('Recipes'), href: "/recipes" },
+    { name: t('AboutUs'), href: "/about-us" },
+    { name: t('YourPosts'), href: "/your-posts" },
+  ];
 
   return (
     <div className=" relative flex justify-between items-center py-6 px-4 sm:px-6 md:px-10 lg:px-20 text-white border-b border-white/20">
@@ -65,6 +68,7 @@ const Navbar = () => {
         >
           <IoMdLogOut />
         </button>
+        <SelectLanguage />
       </div>
       {/* Mobile hamburger */}
       <button
@@ -122,6 +126,7 @@ const Navbar = () => {
                 <IoMdLogOut className="text-xl" />
                 <span>Logout</span>
               </button>
+              <SelectLanguage />
             </nav>
           </div>
         </div>

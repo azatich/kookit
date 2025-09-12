@@ -1,11 +1,13 @@
 {
   "LoginPage": {
+    "SelectLanguage": "Select Language",
     "WelcomeBack": "Welcome Back",
     "SignInToAccount": "Sign in to your account",
     "EmailAddress": "Email Address",
     "Password": "Password",
     "ForgotPassword": "Forgot password?",
     "SignIn": "Sign In",
+    "SigningIn": "Signing in...",
     "DoNotHaveAccount": "Do not have an account? ",
     "SignUp": "Sign up",
     "ErrorInvalidCredentials": "Invalid email or password. Please, try again",
@@ -13,6 +15,7 @@
   },
 
   "SignupPage": {
+    "SelectLanguage": "Select Language",
     "CreateAccount": "Create Account",
     "SignUpToGetStarted": "Sign up to get started",
     "EmailAddress": "Email Address",
@@ -27,5 +30,52 @@
     "ErrorWeakPassword": "Password must be at least 6 characters long.",
     "ErrorPasswordMismatch": "Passwords do not match. Please try again.",
     "ErrorMissingFields": "Please fill in all required fields."
+  },
+
+  "Navbar": {
+    "Home": "Home",
+    "Recipes": "Recipes",
+    "AboutUs": "About us",
+    "YourPosts": "Your posts"
+  },
+
+  "HomePage": {
+    "MainTitle1": "Make Your",
+    "MainTitle2": "Dream",
+    "MainTitle3": "Food with us",
+    "BurgerUI": "Burger",
+    "Footer": {
+      "Review": "Review",
+      "NewDailyRecipes": "New Daily Recipes",
+      "HappyCustomers": "Happy Customers",
+      "Rating": "Rating",
+      "BestDeliciousFood": "Best Delicious Food",
+      "WeHaveBestRecipes": "We Have Best Collection’s Of Food Recipes"
+    }
+  },
+
+  "RecipesPage": {
+    "ExploreRecipes": "Explore Recipes",
+    "ShareYourRecipe": "Share Your Recipe",
+    "By": "By",
+    "Cook": "Cook",
+    "Prep": "Prep",
+    "AddRecipe": {
+      "GoToRecipes": "Go To Recipes",
+      "Title": "Title",
+      "UploadImage": "Upload image",
+      "ChooseFile": "ChooseFile",
+      "Description": "Description (Optional)",
+      "ShortDescription": "Short description",
+      "PrepTime": "Prep Time (in minutes)",
+      "CookTime": "Cook Time (in minutes)",
+      "Ingredients": "Ingredients",
+      "Ingredient": "Ingredient",
+      "AddIngredient": "Add ingredient",
+      "Steps": "Step",
+      "AddStep": "Add step",
+      "AddRecipe": "Add Recipe",
+      "AddingRecipe": "Adding recipe..."
+    }
   }
 }

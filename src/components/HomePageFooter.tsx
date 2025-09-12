@@ -1,7 +1,9 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
 
 const HomePageFooter = () => {
+  const t = useTranslations('HomePage')
   return (
     <div className="grid grid-cols-3 gap-10 items-center text-white bg-[#222222] px-20 py-5">
       {/* Background blurred circles */}
@@ -14,11 +16,11 @@ const HomePageFooter = () => {
           <div className="flex flex-col gap-6">
             <div>
               <span className="block text-2xl font-semibold">5k</span>
-              <span className="text-white/50">Review</span>
+              <span className="text-white/50">{t('Footer.Review')}</span>
             </div>
             <div>
               <span className="block text-2xl font-semibold">100+</span>
-              <span className="text-white/50 text-nowrap">New Daily Recipes</span>
+              <span className="text-white/50 text-nowrap">{t('Footer.NewDailyRecipes')}</span>
             </div>
           </div>
           <Image src="/images/chef.svg" alt="chef" width={150} height={150} />
@@ -28,8 +30,8 @@ const HomePageFooter = () => {
       {/* Middle Section */}
       <div className="flex flex-col gap-2 justify-center">
         <Image src="/images/users.svg" alt="users" width={120} height={120} />
-        <span className="font-semibold">5000+ Happy Customers</span>
-        <span className="text-white/50 text-sm">4.8 Rating (5000+ Review)</span>
+        <span className="font-semibold">5000+ {t('Footer.HappyCustomers')}</span>
+        <span className="text-white/50 text-sm">4.8 {t('Footer.Rating')} (5000+ {t('Footer.Review')})</span>
       </div>
 
       {/* Right Section */}
@@ -43,9 +45,9 @@ const HomePageFooter = () => {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <span className="font-semibold text-lg">Best Delicious Food</span>
+          <span className="font-semibold text-lg">{t('Footer.BestDeliciousFood')}</span>
           <span className="text-white/70">
-            We Have Best Collection’s Of Food Recipes
+            {t('Footer.WeHaveBestRecipes')}
           </span>
         </div>
       </div>

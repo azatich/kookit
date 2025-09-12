@@ -1,4 +1,4 @@
-export interface User{
-  _id: string;
+export interface SessionUser {
+  userId: string;
   email: string;
 }

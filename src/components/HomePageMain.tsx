@@ -2,10 +2,13 @@ import Image from "next/image";
 import React from "react";
 import { Akshar } from "next/font/google";
 import BurgerRating from "./BurgerRatingUI";
+import { useTranslations } from "next-intl";
 
 const akshar = Akshar({ subsets: ["latin"], weight: ["400", "700"] });
 
 const HomePageMain = () => {
+  const t = useTranslations('HomePage')
+
   return (
     <div className="flex items-center gap-20 px-20 w-full h-full">
       {/* Background blurred circles */}
@@ -13,10 +16,10 @@ const HomePageMain = () => {
       <div className="absolute right-[30rem] bg-[#FF7A00] w-[7rem] h-[7rem] blur-[10rem]" />
 
       <div className="w-full h-full flex items-center">
-        <h1 className={`${akshar.className} text-7xl text-white font-semibold`}>
-          Make Your <br />
-          <span className="text-[#FF7A00]">Dream</span>
-          <br /> Food With Us
+        <h1 className={`${akshar.className} text-7xl text-white font-semibold uppercase`}>
+          {t('MainTitle1')} <br />
+          <span className="text-[#FF7A00]">{t('MainTitle2')}</span>
+          <br /> {t('MainTitle3')}
         </h1>
       </div>
       <div className="relative flex justify-center items-center w-full h-full">

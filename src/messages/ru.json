@@ -1,11 +1,13 @@
 {
   "LoginPage": {
+    "SelectLanguage": "Выберите язык",
     "WelcomeBack": "С возвращением",
     "SignInToAccount": "Войдите в свой аккаунт",
     "EmailAddress": "Электронная почта",
     "Password": "Пароль",
     "ForgotPassword": "Забыли пароль?",
     "SignIn": "Войти",
+    "SigningIn": "Вход в систему",
     "DoNotHaveAccount": "Нет аккаунта? ",
     "SignUp": "Зарегистрироваться",
     "ErrorInvalidCredentials": "Неверная почта или пароль. Попробуйте снова",
@@ -13,6 +15,7 @@
   },
 
   "SignupPage": {
+    "SelectLanguage": "Выберите язык",
     "CreateAccount": "Создать аккаунт",
     "SignUpToGetStarted": "Зарегистрируйтесь, чтобы начать",
     "EmailAddress": "Электронная почта",
@@ -27,5 +30,51 @@
     "ErrorWeakPassword": "Пароль должен содержать минимум 6 символов.",
     "ErrorPasswordMismatch": "Пароли не совпадают. Попробуйте снова.",
     "ErrorMissingFields": "Пожалуйста, заполните все обязательные поля."
+  },
+
+  "Navbar": {
+    "Home": "Главная",
+    "Recipes": "Рецепты",
+    "AboutUs": "О нас",
+    "YourPosts": "Ваши посты"
+  },
+
+  "HomePage": {
+    "MainTitle1": "Приготовьте блюдо",
+    "MainTitle2": "Своей мечты",
+    "MainTitle3": "Вместе с нами",
+    "BurgerUI": "Бургер",
+    "Footer": {
+      "Review": "Отзыв",
+       "NewDailyRecipes": "Ежедневные рецепты",
+      "HappyCustomers": "Счастливые клиенты",
+      "Rating": "Рейтинг",
+      "BestDeliciousFood": "Самые вкусные блюда",
+      "WeHaveBestRecipes": "У Нас Есть Коллекция Лучших Кулинарных Рецептов"
+    }
+  },
+
+  "RecipesPage": {
+    "ExploreRecipes": "Изучайте рецепты",
+    "ShareYourRecipe": "Поделитесь своим рецептом",
+    "By": "От",
+    "Cook": "Приготовления",
+    "Prep": "Подготовка",
+    "AddRecipe": {
+      "GoToRecipes": "Вернуться к рецептам",
+      "Title": "Название",
+      "UploadImage": "Загрузить изображение",
+      "ChooseFile": "Выбрать файл",
+      "Description": "Описание (необязательно)",
+      "ShortDescription": "Краткое описание",
+      "PrepTime": "Время подготовки (в минутах)",
+      "CookTime": "Время приготовления (в минутах)",
+      "Ingredients": "Ингредиенты",
+      "Ingredient": "Ингредиент",
+      "AddIngredient": "Добваить Ингредиент",
+      "Steps": "Щаши",
+      "AddStep": "Добавить Шаг",
+      "AddRecipe": "Добавить рецепт"
+    }
   }
 }

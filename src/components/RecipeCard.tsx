@@ -7,10 +7,12 @@ import React, { useEffect, useState } from "react";
 import { IRecipe } from "@/types/RecipeItem";
 import { getUser, updateRecipeRating } from "@/lib/helpers/api";
 import Rating from "./Rating";
+import { useTranslations } from "next-intl";
 
 const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [authorName, setAuthorName] = useState<string>("");
+  const t = useTranslations('RecipesPage')
   const [currentRating, setCurrentRating] = useState<number>(() => {
     const ratings = recipe.rating;
     if (Array.isArray(ratings) && ratings.length > 0) {
@@ -83,7 +85,7 @@ const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
 
         {/* Author & Date */}
         <div className="text-sm text-gray-400 mt-2">
-          By <span className="text-orange-400">{authorName || "Unknown"}</span>{" "}
+          {t('By')} <span className="text-orange-400">{authorName || "Unknown"}</span>{" "}
           · {new Date(recipe.postedDate).toLocaleDateString()}
         </div>
 
@@ -94,8 +96,8 @@ const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
 
         {/* Prep & Cook Times */}
         <div className="flex justify-between mt-4 text-gray-300 text-sm">
-          <span>⏱ Prep: {recipe.prepTime} min</span>
-          <span>🔥 Cook: {recipe.cookTime} min</span>
+          <span>⏱ {t('Prep')}: {recipe.prepTime} min</span>
+          <span>🔥 {t('Cook')}: {recipe.cookTime} min</span>
         </div>
       </div>
     </div>
