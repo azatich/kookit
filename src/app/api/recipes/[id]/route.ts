@@ -44,17 +44,17 @@ export async function DELETE(
     }
 
     const recipe = await Recipe.findById(id);
-    if (recipe.authorId.toString() !== session.userId) {
-      return NextResponse.json({error: 'you can only delete your own recipes'})
-    }
-
     if (!recipe) {
       return NextResponse.json({ error: "Recipe not found" }, { status: 404 });
     }
 
-    if (recipe.imagePublicId) {
+    if (recipe.authorId.toString() !== session.userId) {
+      return NextResponse.json({error: 'you can only delete your own recipes'})
+    }
+
+    if ((recipe as any).imagePublicId) {
       try {
-        await cloudinary.uploader.destroy(recipe.imagePublicId);
+        await cloudinary.uploader.destroy((recipe as any).imagePublicId);
       } catch (error) {
         console.log("Failed to delete image from cloudinary: ", error);
       }
