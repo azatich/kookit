@@ -39,13 +39,12 @@ const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="bg-[#2f2f2f] rounded-2xl overflow-hidden shadow-lg"
+      className="bg-[#2f2f2f] rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
     >
       <Link href={`/recipes/${recipe._id}`}>
         <div
-          className={`relative w-full h-56 ${
-            isHovered && "scale-105 transition duration-300"
-          }`}
+          className={`relative w-full h-40 sm:h-48 lg:h-56 ${isHovered && "scale-105 transition duration-300"
+            }`}
         >
           <Image
             src={recipe.imageURL || "/images/recipeThumbnail.png"}
@@ -56,17 +55,17 @@ const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
         </div>
       </Link>
 
-      <div className="p-4">
+      <div className="p-3 sm:p-4">
         {/* Title */}
         <Link href={`/recipes/${recipe._id}`}>
-          <h2 className="text-xl font-bold text-white hover:text-orange-400 transition">
+          <h2 className="text-lg sm:text-xl font-bold text-white hover:text-orange-400 transition line-clamp-2">
             {recipe.title}
           </h2>
         </Link>
 
         {/* Rating */}
-        <div className="mt-2">
-        <Rating
+        <div className="mt-2 flex items-center">
+          <Rating
             value={currentRating}
             onChange={async (val) => {
               setCurrentRating(val);
@@ -77,26 +76,32 @@ const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
                 console.error(err);
               }
             }}
-            size={16}
+            size={14}
           />
-          <span className="ml-2 text-sm text-gray-400">{currentRating}/5</span>
+          <span className="ml-2 text-xs sm:text-sm text-gray-400">{currentRating}/5</span>
         </div>
 
         {/* Author & Date */}
-        <div className="text-sm text-gray-400 mt-2">
+        <div className="text-xs sm:text-sm text-gray-400 mt-2 line-clamp-1">
           {t('By')} <span className="text-orange-400">{authorName || "Unknown"}</span>{" "}
           · {new Date(recipe.postedDate).toLocaleDateString()}
         </div>
 
         {/* Description (short) */}
-        <p className="text-gray-300 text-sm mt-3 line-clamp-3">
+        <p className="text-gray-300 text-xs sm:text-sm mt-2 sm:mt-3 line-clamp-2 sm:line-clamp-3">
           {recipe.description}
         </p>
 
         {/* Prep & Cook Times */}
-        <div className="flex justify-between mt-4 text-gray-300 text-sm">
-          <span>⏱ {t('Prep')}: {recipe.prepTime} min</span>
-          <span>🔥 {t('Cook')}: {recipe.cookTime} min</span>
+        <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0 mt-3 sm:mt-4 text-gray-300 text-xs sm:text-sm">
+          <span className="flex items-center gap-1">
+            <span>⏱</span>
+            <span>{t('Prep')}: {recipe.prepTime} min</span>
+          </span>
+          <span className="flex items-center gap-1">
+            <span>🔥</span>
+            <span>{t('Cook')}: {recipe.cookTime} min</span>
+          </span>
         </div>
       </div>
     </div>

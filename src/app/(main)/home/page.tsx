@@ -8,10 +8,12 @@ async function HomePage() {
   const session = await getSession();
   if (!session) redirect("/login");
   return (
-    <div className="bg-[#222222] h-screen flex flex-col">
+    <div className="bg-[#222222] min-h-screen flex flex-col">
       <Navbar />
-      <HomePageMain />
-      <HomePageFooter />
+      <main className="flex-1 flex flex-col">
+        <HomePageMain />
+        <HomePageFooter />
+      </main>
     </div>
   );
 }
