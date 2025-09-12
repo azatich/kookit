@@ -4,19 +4,18 @@ import Navbar from "@/components/Navbar";
 import RecipeCard from "@/components/RecipeCard";
 import { getSessionUser, getUserRecipes } from "@/lib/helpers/api";
 import { IRecipe } from "@/types/RecipeItem";
-import { User } from "@/types/SessionUser";
+import { SessionUser } from "@/types/SessionUser";
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const YourPostsPage = () => {
     const [userRecipes, setUserRecipes] = useState<IRecipe[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [currentUser, setCurrentUser] = useState<User | null>(null);
     useEffect(() => {
         async function loadUserRecipes() {
             setIsLoading(true);
             const session = await getSessionUser();
-            const data = await getUserRecipes(session._id);
+            const data = await getUserRecipes(session.userId);
             setUserRecipes(data);
             setIsLoading(false);
         }

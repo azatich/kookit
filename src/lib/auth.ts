@@ -41,6 +41,7 @@ export const verifyJWT = async (): Promise<CustomJWTPayload | null> => {
         const { payload } : { payload: CustomJWTPayload } = await jwtVerify(token , SECRET_KEY)
         return payload
     } catch (error) {
+        console.log(error);
         return null
     }
 }

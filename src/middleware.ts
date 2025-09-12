@@ -21,6 +21,7 @@ export async function middleware(request: NextRequest){
         try {
             await verifyJWT()
         } catch (error) {
+            console.log(error);
             const response = NextResponse.redirect(new URL('/login' , request.url))
             response.cookies.delete('token')
             return response

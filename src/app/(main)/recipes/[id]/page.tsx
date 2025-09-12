@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { getRecipeById, getSessionUser, getUser } from "@/lib/helpers/api";
+import { getRecipeById, getSessionUser } from "@/lib/helpers/api";
 import { IRecipe } from "@/types/RecipeItem";
 import { SessionUser } from "@/types/SessionUser";
 

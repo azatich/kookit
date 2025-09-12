@@ -3,7 +3,7 @@ import { NextIntlClientProvider } from "next-intl";
 import "./globals.css";
 import connectDb from "@/lib/db";
 import { getLocale, getMessages } from "next-intl/server";
-import { Inter, Pacifico } from "next/font/google";
+import { Inter } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "Kookit",
@@ -11,7 +11,6 @@ export const metadata: Metadata = {
 };
 
 const inter = Inter({ subsets: ["latin"], weight: ["400", "700"] });
-const pacifico = Pacifico({ subsets: ["latin"], weight: ["400"] });
 
 export default async function RootLayout({
   children,

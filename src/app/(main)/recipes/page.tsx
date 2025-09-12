@@ -1,6 +1,5 @@
 "use client";
 
-import BackgroundCookingIcons from "@/components/BackgroundCookingIcons";
 import Navbar from "@/components/Navbar";
 import RecipeCard from "@/components/RecipeCard";
 import { getRecipes } from "@/lib/helpers/api";

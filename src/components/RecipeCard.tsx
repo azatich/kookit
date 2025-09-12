@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Star } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { IRecipe } from "@/types/RecipeItem";
 import { getUser, updateRecipeRating } from "@/lib/helpers/api";
