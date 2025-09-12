@@ -3,6 +3,7 @@ import cloudinary from "@/lib/cloudinary";
 import connectDb from "@/lib/db";
 import Recipe from "@/models/Recipe";
 import { NextResponse } from "next/server";
+import { IRecipe } from "@/types/RecipeItem";
 
 export async function GET(
   req: Request,
@@ -13,7 +14,7 @@ export async function GET(
 
     const { id } = await context.params;
 
-    const recipe = await Recipe.findById(id);
+    const recipe = await Recipe.findById(id) as IRecipe | null;
 
     if (!recipe) {
       return NextResponse.json({ error: "Recipe not found" }, { status: 404 });
@@ -43,7 +44,7 @@ export async function DELETE(
       return NextResponse.json({error: 'Unauthorized'}, {status: 401})
     }
 
-    const recipe = await Recipe.findById(id);
+    const recipe = await Recipe.findById(id) as IRecipe | null;
     if (!recipe) {
       return NextResponse.json({ error: "Recipe not found" }, { status: 404 });
     }
@@ -52,9 +53,9 @@ export async function DELETE(
       return NextResponse.json({error: 'you can only delete your own recipes'})
     }
 
-    if ((recipe as any).imagePublicId) {
+    if (recipe.imagePublicId) {
       try {
-        await cloudinary.uploader.destroy((recipe as any).imagePublicId);
+        await cloudinary.uploader.destroy(recipe.imagePublicId);
       } catch (error) {
         console.log("Failed to delete image from cloudinary: ", error);
       }

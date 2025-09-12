@@ -6,6 +6,7 @@ export interface IRecipe {
   authorId: string;
   postedDate: Date;
   imageURL?: string;
+  imagePublicId?: string;
   prepTime?: string;
   cookTime?: string;
   ingredients: string[];
