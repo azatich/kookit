@@ -1,6 +1,6 @@
 // USER ACTIONS
 
-import { User } from "@/types/SessionUser";
+import { SessionUser } from "@/types/SessionUser";
 
 export async function getUser(userId: string) {
   const res = await fetch(`/api/users/${userId}`);
@@ -8,7 +8,7 @@ export async function getUser(userId: string) {
   return res.json();
 }
 
-export async function getSessionUser(): Promise<User> {
+export async function getSessionUser(): Promise<SessionUser> {
   const res = await fetch(`/api/users/me`);
   if (!res.ok) throw new Error("Failed to fetch session user");
   return res.json();
