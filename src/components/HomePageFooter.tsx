@@ -49,9 +49,9 @@ const HomePageFooter = () => {
           <Image
             src="/images/footer-burgers.png"
             alt="burgers"
-            width={130}
+            width={200}
             height={130}
-            className="w-20 h-20 sm:w-24 sm:h-24 lg:w-[130px] lg:h-[130px]"
+            className="w-20 h-20 sm:w-24 sm:h-24 lg:w-[200px] lg:h-[130px]"
           />
         </div>
         <div className="flex flex-col gap-2 text-center sm:text-left">
