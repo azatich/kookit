@@ -59,7 +59,7 @@ export default function LoginForm() {
                 type="email"
                 required
                 placeholder="you@example.com"
-                className="py-5 px-4 text-base rounded-xl"
+                className="py-5 px-4 text-base rounded-xl text-black"
               />
             </div>
 
