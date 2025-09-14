@@ -32,6 +32,19 @@
     "ErrorMissingFields": "Please fill in all required fields."
   },
 
+  "NotFoundPage": {
+    "NotFound": "Oops! Recipe Not Found!",
+    "NotFoundDescription": "Looks like this recipe has been moved to a different kitchen!",
+    "NotFoundDescription2": "The page you're looking for might have been deleted, renamed, or doesn't exist.",
+    "GoHome": "Go Home",
+    "BrowseRecipes": "Browse Recipes",
+    "LookingForSomethingSpecific": "Looking for something specific?",
+    "TrySearchingForYourFavoriteRecipes": "Try searching for your favorite recipes or explore our collection of delicious dishes.",
+    "BackToRecipeCollection": "Back to Recipe Collection",
+    "CookingIsLikeLove": "Cooking is like love. It should be entered into with abandon or not at all.",
+    "HarrietVanHorne": "Harriet Van Horne"
+  },
+
   "Navbar": {
     "Home": "Home",
     "Recipes": "Recipes",
@@ -80,5 +93,11 @@
       "AddRecipe": "Add Recipe",
       "AddingRecipe": "Adding recipe..."
     }
+  },
+
+  "FavouritesPage": {
+    "Favourites": "Favourites",
+    "NoFavourites": "No favourites yet",
+    "StartSavingRecipes": "Start saving recipes to see them here!"
   }
 }

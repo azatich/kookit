@@ -4,11 +4,13 @@ import Navbar from "@/components/Navbar";
 import RecipeCard from "@/components/RecipeCard";
 import { getFavourites, getSessionUser } from "@/lib/helpers/api";
 import { IRecipe } from "@/types/RecipeItem";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react"
 
 export default function FavouritesPage() {
     const [favourites, setFavourites] = useState<IRecipe[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const t = useTranslations('FavouritesPage');
 
     useEffect(() => {
         async function loadFavourites() {
@@ -31,7 +33,7 @@ export default function FavouritesPage() {
             <Navbar />
             <main className="flex-1 flex flex-col">
                 <div className="w-full mx-auto p-4 sm:p-6 lg:p-8 relative z-10">
-                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-pacifico text-[#FF7A00] mb-6 sm:mb-8 lg:mb-10 text-center">Favourites</h1>
+                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-pacifico text-[#FF7A00] mb-6 sm:mb-8 lg:mb-10 text-center">{t('Favourites')}</h1>
                     {isLoading ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
                             {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
@@ -88,8 +90,8 @@ export default function FavouritesPage() {
                         </div>
                     ) : (
                         <div className="text-center py-12">
-                            <div className="text-gray-400 text-lg mb-4">No favourites yet</div>
-                            <p className="text-gray-500">Start saving recipes to see them here!</p>
+                            <div className="text-gray-400 text-lg mb-4">{t('NoFavourites')}</div>
+                            <p className="text-gray-500">{t('StartSavingRecipes')}</p>
                         </div>
                     )}
                 </div>
