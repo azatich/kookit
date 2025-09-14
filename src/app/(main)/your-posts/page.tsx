@@ -5,7 +5,7 @@ import RecipeCard from "@/components/RecipeCard";
 import { getUserRecipes, getSessionUser } from "@/lib/helpers/api";
 import { IRecipe } from "@/types/RecipeItem";
 import { SessionUser } from "@/types/SessionUser";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { PlusCircle, ChefHat, TrendingUp, Calendar } from "lucide-react";
@@ -45,8 +45,10 @@ export default function YourPostsPage() {
     // Calculate stats
     const totalRecipes = userRecipes.length;
     // const totalViews = userRecipes.reduce((sum, recipe) => sum + (recipe.views || 0), 0);
-    const averageRating = userRecipes.length > 0
-        ? userRecipes.reduce((sum, recipe) => {
+    const averageRating = useMemo(() => {
+        if (userRecipes.length === 0) return 0;
+        
+        return userRecipes.reduce((sum, recipe) => {
             if (Array.isArray(recipe.rating) && recipe.rating.length > 0) {
                 const valid = recipe.rating.filter(([uid, r]) => uid !== "legacy" && (r || 0) > 0);
                 if (valid.length > 0) {
@@ -55,8 +57,8 @@ export default function YourPostsPage() {
                 }
             }
             return sum;
-        }, 0) / userRecipes.length
-        : 0;
+        }, 0) / userRecipes.length;
+    }, [userRecipes]);
 
     return (
         <div className="bg-[#222222] min-h-screen flex flex-col">

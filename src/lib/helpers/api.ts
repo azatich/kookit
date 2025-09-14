@@ -48,6 +48,21 @@ export async function getFavourites() {
   return res.json();
 }
 
+export async function updateUserProfile(profileData: {
+  name?: string;
+  phone?: string;
+  profileImage?: string;
+  profileImagePublicId?: string;
+}): Promise<SessionUser> {
+  const res = await fetch(`/api/users/update-profile`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(profileData),
+  });
+  if (!res.ok) throw new Error("Failed to update profile");
+  return res.json();
+}
+
 // RECIPE ACTIONS
 
 export async function getRecipes() {

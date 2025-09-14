@@ -3,7 +3,7 @@ import connectDb from "@/lib/db";
 import User from "@/models/User";
 import { getSession } from "@/lib/auth";
 
-export async function GET() {
+export async function PUT(req: Request) {
   try {
     await connectDb();
 
@@ -12,7 +12,21 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const user = await User.findById(session.userId).select("-password"); 
+    const body = await req.json();
+    const { name, phone, profileImage, profileImagePublicId } = body;
+
+    const updateData: any = {};
+    if (name !== undefined) updateData.name = name;
+    if (phone !== undefined) updateData.phone = phone;
+    if (profileImage !== undefined) updateData.profileImage = profileImage;
+    if (profileImagePublicId !== undefined) updateData.profileImagePublicId = profileImagePublicId;
+
+    const user = await User.findByIdAndUpdate(
+      session.userId,
+      updateData,
+      { new: true, select: "-password" }
+    );
+
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
@@ -31,7 +45,7 @@ export async function GET() {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Failed to get current user:", error);
+    console.error("Failed to update user profile:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

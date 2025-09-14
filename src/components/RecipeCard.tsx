@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { IRecipe } from "@/types/RecipeItem";
 import { deleteRecipe, getSessionUser, getUser, saveRecipe, updateRecipeRating } from "@/lib/helpers/api";
 import Rating from "./Rating";
@@ -16,16 +16,16 @@ const RecipeCard = ({ recipe, onUnsave }: { recipe: IRecipe; onUnsave?: (recipeI
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [isLoadingIsSaved, setIsLoadingIsSaved] = useState<boolean>(false);
   const t = useTranslations('RecipesPage')
-  const [currentRating, setCurrentRating] = useState<number>(() => {
+  const currentRating = useMemo(() => {
     const ratings = recipe.rating;
     if (Array.isArray(ratings) && ratings.length > 0) {
-      const valid = ratings.filter(([uid, r]) => uid !== "legacy" && (r || 0) > 0);
-      if (valid.length === 0) return 0;
-      const avg = valid.reduce((sum, [, r]) => sum + (r || 0), 0) / valid.length;
-      return Math.round(avg);
+        const valid = ratings.filter(([uid, r]) => uid !== "legacy" && (r || 0) > 0);
+        if (valid.length === 0) return 0;
+        const avg = valid.reduce((sum, [, r]) => sum + (r || 0), 0) / valid.length;
+        return Math.round(avg);
     }
     return 0;
-  });
+}, [recipe.rating]);
 
   const handleSaveRecipe = async (recipeId: string) => {
     setIsLoadingIsSaved(true);
@@ -105,10 +105,8 @@ const RecipeCard = ({ recipe, onUnsave }: { recipe: IRecipe; onUnsave?: (recipeI
           <Rating
             value={currentRating}
             onChange={async (val) => {
-              setCurrentRating(val);
               try {
                 const res = await updateRecipeRating(recipe._id, val);
-                setCurrentRating(Math.round(res.average));
               } catch (err) {
                 console.error(err);
               }

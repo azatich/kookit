@@ -10,6 +10,22 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  name: {
+    type: String,
+    default: "",
+  },
+  phone: {
+    type: String,
+    default: "",
+  },
+  profileImage: {
+    type: String,
+    default: "",
+  },
+  profileImagePublicId: {
+    type: String,
+    default: "",
+  },
   savedRecipes: {
     type: [String],
     default: [],

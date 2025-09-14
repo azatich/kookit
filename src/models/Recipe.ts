@@ -13,6 +13,7 @@ const RecipeSchema: Schema = new Schema({
   cookTime: { type: String, required: true },
   ingredients: [{ type: String, required: true }],
   directions: [{ type: String, required: true }],
+  comments: [{ type: Schema.Types.Mixed, default: [] }],
 });
 
 
