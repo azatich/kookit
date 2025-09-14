@@ -7,10 +7,7 @@ import mongoose from "mongoose";
 export async function POST(req: Request) {
     try {
         await connectDb();
-        console.log("Database connection status:", mongoose.connection.readyState);
-        const session = await getSession();
-        console.log("Session:", session);
-        
+        const session = await getSession();        
         if (!session) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }

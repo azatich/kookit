@@ -10,7 +10,7 @@ import { useTranslations } from "next-intl";
 import { BookmarkCheck } from "lucide-react";
 import { FiBookmark } from "react-icons/fi";
 
-const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
+const RecipeCard = ({ recipe, onUnsave }: { recipe: IRecipe; onUnsave?: (recipeId: string) => void }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [authorName, setAuthorName] = useState<string>("");
   const [isSaved, setIsSaved] = useState<boolean>(false);
@@ -33,6 +33,10 @@ const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
       await deleteRecipe(recipeId);
       setIsSaved(!isSaved);
       setIsLoadingIsSaved(false);
+      // Notify parent component that recipe was unsaved
+      if (onUnsave) {
+        onUnsave(recipeId);
+      }
       return;
     }
     await saveRecipe(recipeId);
@@ -62,9 +66,6 @@ const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
     }
     checkSavedRecipe();
   }, [recipe._id])
-
-  console.log(isSaved);
-
 
   return (
     <div

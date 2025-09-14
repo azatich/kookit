@@ -15,7 +15,7 @@ export async function getSessionUser(): Promise<SessionUser> {
 }
 
 export async function getUserRecipes(userId: string) {
-  const res = await fetch(`/api/recipes/user/${userId}`); // /api/recipes/user/665645645645645645645645
+  const res = await fetch(`/api/recipes/user/${userId}`);
   if (!res.ok) throw new Error("Failed to fetch user recipes");
   return res.json();
 }
@@ -39,6 +39,12 @@ export async function deleteRecipe(recipeId: string) {
     body: JSON.stringify({ recipeId }),
   });
   if (!res.ok) throw new Error("Failed to delete recipe");
+  return res.json();
+}
+
+export async function getFavourites() {
+  const res = await fetch(`/api/users/favourites`);
+  if (!res.ok) throw new Error("Failed to fetch user favourites");
   return res.json();
 }
 

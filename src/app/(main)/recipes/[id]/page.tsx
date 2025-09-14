@@ -32,9 +32,7 @@ const RecipePage = () => {
   useEffect(() => {
     async function loadUser() {
       if (!recipe?.authorId) return;
-      const data = await getSessionUser();
-      console.log(data);
-      
+      const data = await getSessionUser();      
       setCurrentUser(data);
     }
     loadUser();

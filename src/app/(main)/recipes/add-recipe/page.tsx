@@ -7,47 +7,48 @@ import { PlusCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { useRecipeForm } from "@/hooks/useRecipeForm";
 
 const AddRecipe = () => {
-  const [title, setTitle] = useState<string>("");
   const [image, setImage] = useState<File>();
   const [preview, setPreview] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [prepTime, setPrepTime] = useState<number>(0);
-  const [cookTime, setCookTime] = useState<number>(0);
-  const [prepTimeError, setPrepTimeError] = useState<string>("");
-  const [cookTimeError, setCookTimeError] = useState<string>("");
-  const [ingredients, setIngredients] = useState<string[]>([""]);
-  const [directions, setDirections] = useState<string[]>([""]);
   const [isLoadingAddRecipe, setIsLoadingAddRecipe] = useState<boolean>(false);
+
+  const {
+    formData,
+    errors,
+    validateForm,
+    validateField,
+    updateField,
+    addIngredient,
+    updateIngredient,
+    removeIngredient,
+    addDirection,
+    updateDirection,
+    removeDirection,
+    resetForm,
+  } = useRecipeForm();
+
   const t = useTranslations('RecipesPage')
+
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
 
+    if (!validateForm(image)) {
+      return;
+    }
     setIsLoadingAddRecipe(true);
 
-    const isPrepInvalid = Number.isNaN(prepTime) || prepTime < 0;
-    const isCookInvalid = Number.isNaN(cookTime) || cookTime < 0;
-    if (isPrepInvalid || isCookInvalid) {
-      if (isPrepInvalid) setPrepTimeError("Prep time must be a non-negative number");
-      if (isCookInvalid) setCookTimeError("Cook time must be a non-negative number");
-      setIsLoadingAddRecipe(false);
-      return;
-    }
-
-    if (!image) {
-      console.error("⚠️ No image selected");
-      return;
-    }
-
     try {
-      const formData = new FormData();
-      formData.append("image", image);
+      const uploadFormData = new FormData();
+      if (image) {
+        uploadFormData.append("image", image);
+      }
 
       const uploadRes = await fetch("/api/upload-image", {
         method: "POST",
-        body: formData,
+        body: uploadFormData,
       });
 
       if (!uploadRes.ok) {
@@ -57,14 +58,14 @@ const AddRecipe = () => {
       const { url, public_id } = await uploadRes.json();
 
       const newRecipe = {
-        title,
+        title: formData.title,
         imageURL: url,
         imagePublicId: public_id,
-        description,
-        prepTime,
-        cookTime,
-        ingredients,
-        directions,
+        description: formData.description,
+        prepTime: formData.prepTime,
+        cookTime: formData.cookTime,
+        ingredients: formData.ingredients,
+        directions: formData.directions,
       };
 
       const res = await fetch("/api/recipes", {
@@ -74,16 +75,9 @@ const AddRecipe = () => {
       });
 
       if (res.ok) {
-        console.log("✅ Recipe submitted successfully");
-        setTitle('');
-        setPreview('')
-        setDescription('')
-        setPrepTime(0)
-        setCookTime(0)
-        setIngredients([])
-        setDirections([]);
-        setPrepTimeError("");
-        setCookTimeError("");
+        setImage(undefined);
+        setPreview('');
+        resetForm();
       } else {
         console.error("❌ Failed to submit recipe");
       }
@@ -102,36 +96,11 @@ const AddRecipe = () => {
       const file = e.target.files[0];
       setImage(file);
       setPreview(URL.createObjectURL(file));
+      // Clear image error when valid file is selected
+      // Note: Image validation is handled in the hook's validateForm function
     }
   }
 
-  function addIngredient() {
-    setIngredients([...ingredients, ""]);
-  }
-  function updateIngredient(i: number, value: string) {
-    const updatedIngs = [...ingredients];
-    updatedIngs[i] = value;
-    setIngredients(updatedIngs);
-  }
-  function removeIngredient(i: number) {
-    const updatedIngs = [...ingredients];
-    updatedIngs.splice(i, 1);
-    setIngredients(updatedIngs);
-  }
-
-  function addStep() {
-    setDirections([...directions, ""]);
-  }
-  function updateDirections(i: number, value: string) {
-    const updateDirs = [...directions];
-    updateDirs[i] = value;
-    setDirections(updateDirs);
-  }
-  function removeDirection(i: number) {
-    const updateDirs = [...directions];
-    updateDirs.splice(i, 1);
-    setDirections(updateDirs);
-  }
 
   return (
     <div className="min-h-screen bg-[#222] text-white">
@@ -162,14 +131,26 @@ const AddRecipe = () => {
               </label>
               <input
                 type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                value={formData.title}
+                onChange={(e) => updateField('title', e.target.value)}
+                onBlur={() => validateField('title')}
                 placeholder="e.g., Spicy Chicken Chili"
-                className="w-full px-4 py-2 rounded-lg border border-white"
+                className={`w-full px-4 py-2 rounded-lg border ${errors.title ? "border-red-400 bg-red-50" : "border-white"
+                  }`}
                 required
               />
+              <div className="flex justify-between items-center mt-1">
+                {errors.title && (
+                  <p className="text-sm text-red-400">{errors.title}</p>
+                )}
+                <p className={`text-xs ml-auto ${formData.title.length > 100 ? "text-red-400" : "text-gray-400"
+                  }`}>
+                  {formData.title.length}/100
+                </p>
+              </div>
             </div>
-            <div className="w-full border border-gray-300 rounded-lg p-6 text-center shadow-sm">
+            <div className={`w-full border rounded-lg p-6 text-center shadow-sm ${errors.image ? "border-red-400" : "border-gray-300"
+              }`}>
               <h2 className="text-lg font-semibold text-white">{t('AddRecipe.UploadImage')}</h2>
 
               <div className="mt-6">
@@ -183,7 +164,7 @@ const AddRecipe = () => {
                   id="fileUpload"
                   type="file"
                   className="hidden"
-                  accept=".pdf,.txt,.doc,.docx,.png,.jpg,.jpeg"
+                  accept="image/jpeg,image/jpg,image/png,image/webp"
                   onChange={handleChange}
                 />
               </div>
@@ -200,81 +181,76 @@ const AddRecipe = () => {
                   </div>
                 </div>
               )}
+
+              {errors.image && (
+                <p className="mt-2 text-sm text-red-400">{errors.image}</p>
+              )}
             </div>
 
             <div>
               <label className="block mb-2 uppercase font-semibold">
-              {t('AddRecipe.Description')}
+                {t('AddRecipe.Description')} <span className="text-gray-400 text-sm font-normal">(optional)</span>
               </label>
               <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                value={formData.description}
+                onChange={(e) => updateField('description', e.target.value)}
+                onBlur={() => validateField('description')}
                 placeholder={t('AddRecipe.ShortDescription')}
-                className="w-full px-4 py-2 rounded-lg border border-white"
+                className={`w-full px-4 py-2 rounded-lg border ${errors.description ? "border-red-400 bg-red-50" : "border-white"
+                  }`}
                 rows={4}
               />
+              <div className="flex justify-between items-center mt-1">
+                {errors.description && (
+                  <p className="text-sm text-red-400">{errors.description}</p>
+                )}
+                <p className={`text-xs ml-auto ${formData.description.length > 500 ? "text-red-400" : "text-gray-400"
+                  }`}>
+                  {formData.description.length}/500 {formData.description.length === 0 && "(optional)"}
+                </p>
+              </div>
             </div>
 
             {/* Prep & Cook Time */}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block mb-2 uppercase font-semibold">
-                {t('AddRecipe.PrepTime')}
+                  {t('AddRecipe.PrepTime')}
                 </label>
                 <input
                   type="number"
                   inputMode="numeric"
                   min={0}
                   step={1}
-                  value={prepTime}
-                  onChange={(e) => {
-                    const next = e.currentTarget.valueAsNumber;
-                    if (Number.isNaN(next)) {
-                      setPrepTimeError("Please enter a number");
-                      return;
-                    }
-                    if (next < 0) {
-                      setPrepTimeError("Prep time must be a non-negative number");
-                    } else {
-                      setPrepTimeError("");
-                    }
-                    setPrepTime(next);
-                  }}
+                  value={formData.prepTime}
+                  onChange={(e) => updateField('prepTime', e.currentTarget.valueAsNumber)}
+                  onBlur={() => validateField('prepTime')}
                   placeholder="e.g., 15"
-                  className={`w-full px-4 py-2 rounded-lg border ${prepTimeError ? "border-red-400" : "border-white"}`}
+                  className={`w-full px-4 py-2 rounded-lg border ${errors.prepTime ? "border-red-400 bg-red-50" : "border-white"
+                    }`}
                 />
-                {prepTimeError && (
-                  <p className="mt-1 text-sm text-red-400">{prepTimeError}</p>
+                {errors.prepTime && (
+                  <p className="mt-1 text-sm text-red-400">{errors.prepTime}</p>
                 )}
               </div>
               <div>
                 <label className="block mb-2 uppercase font-semibold">
-                {t('AddRecipe.CookTime')}
+                  {t('AddRecipe.CookTime')}
                 </label>
                 <input
                   type="number"
                   inputMode="numeric"
                   min={0}
                   step={1}
-                  value={cookTime}
-                  onChange={(e) => {
-                    const next = e.currentTarget.valueAsNumber;
-                    if (Number.isNaN(next)) {
-                      setCookTimeError("Please enter a number");
-                      return;
-                    }
-                    if (next < 0) {
-                      setCookTimeError("Cook time must be a non-negative number");
-                    } else {
-                      setCookTimeError("");
-                    }
-                    setCookTime(next);
-                  }}
+                  value={formData.cookTime}
+                  onChange={(e) => updateField('cookTime', e.currentTarget.valueAsNumber)}
+                  onBlur={() => validateField('cookTime')}
                   placeholder="e.g., 120"
-                  className={`w-full px-4 py-2 rounded-lg border ${cookTimeError ? "border-red-400" : "border-white"}`}
+                  className={`w-full px-4 py-2 rounded-lg border ${errors.cookTime ? "border-red-400 bg-red-50" : "border-white"
+                    }`}
                 />
-                {cookTimeError && (
-                  <p className="mt-1 text-sm text-red-400">{cookTimeError}</p>
+                {errors.cookTime && (
+                  <p className="mt-1 text-sm text-red-400">{errors.cookTime}</p>
                 )}
               </div>
             </div>
@@ -289,7 +265,7 @@ const AddRecipe = () => {
                   <PlusCircle className="w-5 h-5" /> {t('AddRecipe.AddIngredient')}
                 </button>
               </div>
-              {ingredients.map((ingredient, i) => (
+              {formData.ingredients.map((ingredient, i) => (
                 <div
                   key={i}
                   className="flex gap-3 items-center mt-2 border border-white rounded-lg px-3 py-2"
@@ -298,6 +274,7 @@ const AddRecipe = () => {
                     type="text"
                     value={ingredient}
                     onChange={(e) => updateIngredient(i, e.target.value)}
+                    onBlur={() => validateField('ingredients')}
                     className="flex-1 bg-transparent outline-none text-white"
                     placeholder={`${t('AddRecipe.Ingredient')} ${i + 1}`}
                     required
@@ -307,19 +284,22 @@ const AddRecipe = () => {
                   </button>
                 </div>
               ))}
+              {errors.ingredients && (
+                <p className="mt-2 text-sm text-red-400">{errors.ingredients}</p>
+              )}
             </div>
             <div>
               <div className="flex items-center justify-between">
                 <label className="block mb-2 font-semibold">{t('AddRecipe.Steps')}</label>
                 <button
-                  onClick={addStep}
+                  onClick={addDirection}
                   type="button"
                   className="flex items-center gap-2 text-amber-500 hover:text-amber-600"
                 >
                   <PlusCircle className="w-5 h-5" /> {t('AddRecipe.AddStep')}
                 </button>
               </div>
-              {directions.map((direction, i) => (
+              {formData.directions.map((direction, i) => (
                 <div
                   key={i}
                   className="flex gap-3 items-center mt-2 border border-white rounded-lg px-3 py-2"
@@ -327,7 +307,8 @@ const AddRecipe = () => {
                   <input
                     type="text"
                     value={direction}
-                    onChange={(e) => updateDirections(i, e.target.value)}
+                    onChange={(e) => updateDirection(i, e.target.value)}
+                    onBlur={() => validateField('directions')}
                     placeholder={`Step ${i + 1}`}
                     className="flex-1 bg-transparent outline-none text-white"
                     required
@@ -337,11 +318,17 @@ const AddRecipe = () => {
                   </button>
                 </div>
               ))}
+              {errors.directions && (
+                <p className="mt-2 text-sm text-red-400">{errors.directions}</p>
+              )}
             </div>
             <button
               type="submit"
               disabled={isLoadingAddRecipe}
-              className="bg-amber-500 uppercase font-semibold hover:bg-amber-600 transition duration-300 px-4 py-2 rounded-lg mt-4"
+              className={`uppercase font-semibold transition duration-300 px-4 py-2 rounded-lg mt-4 ${isLoadingAddRecipe
+                ? "bg-gray-500 cursor-not-allowed"
+                : "bg-amber-500 hover:bg-amber-600"
+                }`}
             >
               {isLoadingAddRecipe ? (
                 <div className="text-center">
