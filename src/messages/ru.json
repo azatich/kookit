@@ -23,6 +23,7 @@
     "ConfirmPassword": "Подтвердите пароль",
     "PasswordRequirement": "Пароль должен содержать минимум 6 символов",
     "CreateAccountButton": "Создать аккаунт",
+    "CreatingAccount": "Создание аккаунта...",
     "AlreadyHaveAccount": "Уже есть аккаунт? ",
     "SignIn": "Войти",
     "ErrorEmailExists": "Учетная запись с таким email уже существует. Пожалуйста, войдите.",
@@ -76,6 +77,7 @@
     "By": "От",
     "Cook": "Приготовления",
     "Prep": "Подготовка",
+    "min": "мин",
     "AddRecipe": {
       "GoToRecipes": "Вернуться к рецептам",
       "Title": "Название",
@@ -92,6 +94,17 @@
       "AddStep": "Добавить Шаг",
       "AddRecipe": "Добавить рецепт"
     }
+  },
+
+  "YourPostsPage": {
+    "YourRecipeCollection": "Ваша коллекция рецептов",
+    "YourRecipeCollectionDescription": "Управляйте и демонстрируйте свои кулинарные творения",
+    "TotalRecipes": "Всего рецептов",
+    "AvgRating": "Средний рейтинг",
+    "AddNewRecipe": "Добавить новый рецепт",
+    "NoRecipesYet": "Рецептов еще нет",
+    "StartYourCulinaryJourney": "Начните свою кулинарную карьеру, поделившись своим первым рецептом с сообществом!",
+    "CreateYourFirstRecipe": "Создайте свой первый рецепт"
   },
 
   "FavouritesPage": {

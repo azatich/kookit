@@ -23,6 +23,7 @@
     "ConfirmPassword": "Құпиясөзді растаңыз",
     "PasswordRequirement": "Құпиясөз кемінде 6 таңбадан тұруы керек",
     "CreateAccountButton": "Аккаунт құру",
+    "CreatingAccount": "Аккаунт құрылуда...",
     "AlreadyHaveAccount": "Поштаңыз бар ма? ",
     "SignIn": "Кіру",
     "ErrorEmailExists": "Бұл пошта бұрын тіркелген. Кіруді қолданыңыз.",
@@ -76,6 +77,7 @@
     "By": "Иесі",
     "Cook": "Пісіру",
     "Prep": "Дайындау",
+    "min": "мин",
     "AddRecipe": {
       "GoToRecipes": "Рецептілерге қайту",
       "Title": "Аты",
@@ -93,6 +95,17 @@
       "AddRecipe": "Рецептіні қосу",
       "AddingRecipe": "Қосылуда..."
     }
+  },
+
+  "YourPostsPage": {
+    "YourRecipeCollection": "Сіздің рецептілер коллекцияңыз",
+    "YourRecipeCollectionDescription": "Өзіңіздің кулинарлық өнеріңізді көрсетіңіз және басқарыңыз",
+    "TotalRecipes": "Барлық рецептілер",
+    "AvgRating": "Орташа рейтинг",
+    "AddNewRecipe": "Жаңа рецепт қосу",
+    "NoRecipesYet": "Ешқандай рецептіңіз жоқ",
+    "StartYourCulinaryJourney": "Өзіңіздің бірінші рецептіңізбен қоғамдастықпен бөлісе отырып кулинарлық жолыңызды бастаңыз!",
+    "CreateYourFirstRecipe": "Өзіңіздің бірінші рецептіңізді құрыңыз"
   },
 
   "FavouritesPage": {

@@ -133,11 +133,11 @@ const RecipeCard = ({ recipe, onUnsave }: { recipe: IRecipe; onUnsave?: (recipeI
         <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0 mt-3 sm:mt-4 text-gray-300 text-xs sm:text-sm">
           <span className="flex items-center gap-1">
             <span>⏱</span>
-            <span>{t('Prep')}: {recipe.prepTime} min</span>
+            <span>{t('Prep')}: {recipe.prepTime} {t('min')}</span>
           </span>
           <span className="flex items-center gap-1">
             <span>🔥</span>
-            <span>{t('Cook')}: {recipe.cookTime} min</span>
+            <span>{t('Cook')}: {recipe.cookTime} {t('min')}</span>
           </span>
         </div>
       </div>

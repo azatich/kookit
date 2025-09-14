@@ -23,6 +23,7 @@
     "ConfirmPassword": "Confirm Password",
     "PasswordRequirement": "Password must be at least 6 characters long",
     "CreateAccountButton": "Create Account",
+    "CreatingAccount": "Creating account...",
     "AlreadyHaveAccount": "Already have an account? ",
     "SignIn": "Sign in",
     "ErrorEmailExists": "An account with this email already exists. Please try logging in.",
@@ -76,6 +77,7 @@
     "By": "By",
     "Cook": "Cook",
     "Prep": "Prep",
+    "min": "min",
     "AddRecipe": {
       "GoToRecipes": "Go To Recipes",
       "Title": "Title",
@@ -93,6 +95,17 @@
       "AddRecipe": "Add Recipe",
       "AddingRecipe": "Adding recipe..."
     }
+  },
+
+  "YourPostsPage": {
+    "YourRecipeCollection": "Your Recipe Collection",
+    "YourRecipeCollectionDescription": "Manage and showcase your culinary creations",
+    "TotalRecipes": "Total Recipes",
+    "AvgRating": "Avg Rating",
+    "AddNewRecipe": "Add New Recipe",
+    "NoRecipesYet": "No recipes yet",
+    "StartYourCulinaryJourney": "Start your culinary journey by sharing your first recipe with the community!",
+    "CreateYourFirstRecipe": "Create Your First Recipe"
   },
 
   "FavouritesPage": {
