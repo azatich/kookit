@@ -5,12 +5,15 @@ import Link from "next/link";
 import React, { useState } from "react";
 
 import { IoMdLogOut } from "react-icons/io";
-import { FiBookmark } from "react-icons/fi";
+import { FiBookmark, FiBookOpen, FiHome, FiInfo } from "react-icons/fi";
+import { MdOutlinePostAdd } from "react-icons/md";
+import { UtensilsCrossed } from "lucide-react";
+
 import { usePathname, useRouter } from "next/navigation";
-import { CircleUserRound, UtensilsCrossed } from "lucide-react";
 import SelectLanguage from "./SelectLanguage";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { FaRegUserCircle } from "react-icons/fa";
 
 const Navbar = () => {
   const pathName = usePathname();
@@ -21,10 +24,10 @@ const Navbar = () => {
   const closeMobile = () => setIsMobileOpen(false);
 
   const navLinks = [
-    { name: t('Home'), href: "/home" },
-    { name: t('Recipes'), href: "/recipes" },
-    { name: t('AboutUs'), href: "/about-us" },
-    { name: t('YourPosts'), href: "/your-posts" },
+    { name: t('Home'), href: "/home", icon: <FiHome /> },
+    { name: t('Recipes'), href: "/recipes", icon: <FiBookOpen /> },
+    { name: t('AboutUs'), href: "/about-us", icon: <FiInfo /> },
+    { name: t('YourPosts'), href: "/your-posts", icon: <MdOutlinePostAdd className="text-xl" />},
   ];
 
   return (
@@ -59,7 +62,7 @@ const Navbar = () => {
         >
           <FiBookmark />
         </Link>
-        <Link className="inline-block px-4 py-1 hover:bg-[#FF7A00]/30 transition duration-300 rounded-lg" title="Profile" href="/profile"><CircleUserRound /></Link>
+        <Link className="inline-block px-4 py-1 hover:bg-[#FF7A00]/30 transition duration-300 rounded-lg" title="Profile" href="/profile"><FaRegUserCircle /></Link>
         <button
           className="hover:bg-red-500 transition duration-300 px-4 py-1 rounded-lg"
           onClick={async () => {
@@ -126,26 +129,27 @@ const Navbar = () => {
                   key={link.name}
                   href={link.href}
                   onClick={closeMobile}
-                  className={` ${pathName === link.href ? "bg-white/10" : ""} px-4 py-3 text-base hover:bg-white/10 transition relative`}
+                  className={` ${pathName === link.href ? "bg-white/10" : ""} flex items-center gap-3 px-4 py-3 text-base hover:bg-white/10 transition relative`}
                 >
+                  {link.icon}
                   {link.name}
                 </Link>
               ))}
               <Link
                 href="/favourites"
                 onClick={closeMobile}
-                className="px-4 py-3 text-base hover:bg-white/10 transition flex items-center gap-3 relative"
+                className="flex items-center gap-3 px-4 py-3 text-base hover:bg-white/10 transition relative"
               >
                 <FiBookmark className="text-xl" />
-                <span>Favourites</span>
+                <span>{t('Favourites')}</span>
               </Link>
               <Link
                 href="/profile"
                 onClick={closeMobile}
-                className="px-4 py-3 text-base hover:bg-white/10 transition flex items-center gap-3 relative"
+                className="flex items-center gap-3 px-4 py-3 text-base hover:bg-white/10 transition relative"
               >
-                <CircleUserRound className="text-xl" />
-                <span>Profile</span>
+                <FaRegUserCircle />
+                <span>{t('Profile')}</span>
               </Link>
               <button
                 onClick={async () => {
@@ -153,10 +157,10 @@ const Navbar = () => {
                   await logoutAction();
                   router.push("/login");
                 }}
-                className="text-left px-4 py-3 text-base hover:bg-white/10 transition flex items-center gap-3 relative"
+                className="flex items-center gap-3 px-4 py-3 text-base hover:bg-white/10 transition relative"
               >
                 <IoMdLogOut className="text-xl" />
-                <span>Logout</span>
+                <span>{t('Logout')}</span>
               </button>
               <div className="px-4 py-3 relative">
                 <SelectLanguage />

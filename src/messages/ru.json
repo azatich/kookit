@@ -36,7 +36,10 @@
     "Home": "Главная",
     "Recipes": "Рецепты",
     "AboutUs": "О нас",
-    "YourPosts": "Ваши посты"
+    "YourPosts": "Ваши посты",
+    "Favourites": "Сохраненные посты",
+    "Profile": "Профиль",
+    "Logout": "Выйти"
   },
 
   "HomePage": {

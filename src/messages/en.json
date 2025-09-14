@@ -36,7 +36,10 @@
     "Home": "Home",
     "Recipes": "Recipes",
     "AboutUs": "About us",
-    "YourPosts": "Your posts"
+    "YourPosts": "Your posts",
+    "Favourites": "Favourites",
+    "Profile": "Profile",
+    "Logout": "Logout"
   },
 
   "HomePage": {
