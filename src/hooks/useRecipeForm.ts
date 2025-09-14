@@ -108,7 +108,10 @@ export const useRecipeForm = () => {
   };
 
   // Form field update functions
-  const updateField = (field: keyof RecipeFormData, value: any) => {
+  const updateField = <K extends keyof RecipeFormData>(
+    field: K, 
+    value: RecipeFormData[K]
+  ) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     setErrors(prev => ({ ...prev, [field]: "" }));
   };
