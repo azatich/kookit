@@ -97,6 +97,16 @@
     }
   },
 
+  "RecipePage": {
+    "BackToRecipes": "Рецептілерге қайту",
+    "RemoveRecipe": "Рецептті жою",
+    "By": "Иесі",
+    "PrepTime": "Дайындалу уақыты",
+    "CookTime": "Пісіру уақыты",
+    "Ingredients": "Ингредиенттер",
+    "Directions": "Қадамдар"
+  },
+
   "YourPostsPage": {
     "YourRecipeCollection": "Сіздің рецептілер коллекцияңыз",
     "YourRecipeCollectionDescription": "Өзіңіздің кулинарлық өнеріңізді көрсетіңіз және басқарыңыз",

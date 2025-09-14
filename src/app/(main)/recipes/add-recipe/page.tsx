@@ -189,7 +189,7 @@ const AddRecipe = () => {
 
             <div>
               <label className="block mb-2 uppercase font-semibold">
-                {t('AddRecipe.Description')} <span className="text-gray-400 text-sm font-normal">(optional)</span>
+                {t('AddRecipe.Description')}
               </label>
               <textarea
                 value={formData.description}

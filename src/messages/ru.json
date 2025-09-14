@@ -89,11 +89,21 @@
       "CookTime": "Время приготовления (в минутах)",
       "Ingredients": "Ингредиенты",
       "Ingredient": "Ингредиент",
-      "AddIngredient": "Добваить Ингредиент",
-      "Steps": "Щаши",
+      "AddIngredient": "Добавить Ингредиент",
+      "Steps": "Щаги",
       "AddStep": "Добавить Шаг",
       "AddRecipe": "Добавить рецепт"
     }
+  },
+
+  "RecipePage": {
+    "BackToRecipes": "Вернуться к рецептам",
+    "RemoveRecipe": "Удалить рецепт",
+    "By": "От",
+    "PrepTime": "Время подготовки",
+    "CookTime": "Время приготовления",
+    "Ingredients": "Ингредиенты",
+    "Directions": "Шаги"
   },
 
   "YourPostsPage": {

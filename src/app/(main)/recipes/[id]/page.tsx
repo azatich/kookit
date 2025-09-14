@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { getRecipeById, getSessionUser } from "@/lib/helpers/api";
 import { IRecipe } from "@/types/RecipeItem";
 import { SessionUser } from "@/types/SessionUser";
+import { useTranslations } from "next-intl";
 
 const RecipePage = () => {
   const params = useParams();
@@ -14,6 +15,7 @@ const RecipePage = () => {
   const [recipe, setRecipe] = useState<IRecipe | null>(null);
   const [currentUser, setCurrentUser] = useState<SessionUser | null>(null);
   const [loading, setLoading] = useState(true);
+  const t = useTranslations('RecipePage');
 
   useEffect(() => {
     async function fetchRecipe() {
@@ -126,7 +128,7 @@ const RecipePage = () => {
             href="/recipes"
             className="inline-block mt-6 mb-4 px-4 py-2 bg-orange-400 text-white rounded-lg hover:bg-orange-500 transition duration-300"
           >
-            ← Back to Recipes
+            ← {t('BackToRecipes')}
           </Link>
           {currentUser && currentUser.userId === recipe.authorId && (
             <button
@@ -134,7 +136,7 @@ const RecipePage = () => {
               className="bg-red-500 text-white px-4 py-2 rounded-lg"
               type="submit"
             >
-              Remove recipe
+              {t('RemoveRecipe')}
             </button>
           )}
         </div>
@@ -144,7 +146,7 @@ const RecipePage = () => {
         <p className="mt-2 text-gray-300">{recipe.description}</p>
         <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-gray-400">
           {recipe.authorId && (
-            <span>👨‍🍳 By {recipe.authorId}</span>
+            <span>👨‍🍳 {t('By')} {recipe.authorId}</span>
           )}
           {recipe.postedDate && (
             <span>📅 {new Date(recipe.postedDate).toLocaleDateString()}</span>
@@ -174,13 +176,13 @@ const RecipePage = () => {
 
       {/* Times */}
       <div className="max-w-4xl mx-auto mt-6 flex gap-6 text-gray-300">
-        {recipe.prepTime && <div>⏱️ Prep Time: {recipe.prepTime}</div>}
-        {recipe.cookTime && <div>🍳 Cook Time: {recipe.cookTime}</div>}
+        {recipe.prepTime && <div>⏱️ {t('PrepTime')}: {recipe.prepTime}</div>}
+        {recipe.cookTime && <div>🍳 {t('CookTime')}: {recipe.cookTime}</div>}
       </div>
 
       {/* Ingredients */}
       <div className="max-w-4xl mx-auto mt-10">
-        <h2 className="text-2xl font-semibold mb-4">Ingredients</h2>
+        <h2 className="text-2xl font-semibold mb-4">{t('Ingredients')}</h2>
         <ul className="list-disc list-inside space-y-2">
           {recipe.ingredients.length === 1 ? (
             <li>{recipe.ingredients[0]}</li>
@@ -194,7 +196,7 @@ const RecipePage = () => {
 
       {/* Directions */}
       <div className="max-w-4xl mx-auto mt-10">
-        <h2 className="text-2xl font-semibold mb-4">Directions</h2>
+        <h2 className="text-2xl font-semibold mb-4">{t('Directions')}</h2>
         <ol className="list-decimal list-inside space-y-4">
           {recipe.directions.map((step, index) => (
             <li key={index}>{step}</li>

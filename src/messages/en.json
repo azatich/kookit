@@ -97,6 +97,16 @@
     }
   },
 
+  "RecipePage": {
+    "BackToRecipes": "Back to Recipes",
+    "RemoveRecipe": "Remove Recipe",
+    "By": "By",
+    "PrepTime": "Prep Time",
+    "CookTime": "Cook Time",
+    "Ingredients": "Ingredients",
+    "Directions": "Directions"
+  },
+
   "YourPostsPage": {
     "YourRecipeCollection": "Your Recipe Collection",
     "YourRecipeCollectionDescription": "Manage and showcase your culinary creations",
