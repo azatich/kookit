@@ -140,6 +140,11 @@ export default function ProfilePage() {
         });
     };
 
+    const formattedJoinDate = useMemo(() => {
+        if (!user?.createdAt) return '';
+        return formatDate(user.createdAt);
+    }, [user?.createdAt]);
+
     if (isLoading) {
         return (
             <div>

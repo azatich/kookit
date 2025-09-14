@@ -3,6 +3,13 @@ import connectDb from "@/lib/db";
 import User from "@/models/User";
 import { getSession } from "@/lib/auth";
 
+interface UpdateProfileData {
+  name?: string;
+  phone?: string;
+  profileImage?: string;
+  profileImagePublicId?: string;
+}
+
 export async function PUT(req: Request) {
   try {
     await connectDb();
@@ -13,9 +20,9 @@ export async function PUT(req: Request) {
     }
 
     const body = await req.json();
-    const { name, phone, profileImage, profileImagePublicId } = body;
+    const { name, phone, profileImage, profileImagePublicId } = body as UpdateProfileData;
 
-    const updateData: any = {};
+    const updateData: UpdateProfileData = {};
     if (name !== undefined) updateData.name = name;
     if (phone !== undefined) updateData.phone = phone;
     if (profileImage !== undefined) updateData.profileImage = profileImage;
