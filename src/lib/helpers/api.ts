@@ -20,6 +20,28 @@ export async function getUserRecipes(userId: string) {
   return res.json();
 }
 
+export async function saveRecipe(recipeId: string) {
+  const res = await fetch(`/api/users/save-recipe`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ recipeId }),
+  });
+  if (!res.ok) throw new Error("Failed to save recipe");
+  console.log('recipe is saved');
+  
+  return res.json();
+}
+
+export async function deleteRecipe(recipeId: string) {
+  const res = await fetch(`/api/users/delete-recipe`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ recipeId }),
+  });
+  if (!res.ok) throw new Error("Failed to delete recipe");
+  return res.json();
+}
+
 // RECIPE ACTIONS
 
 export async function getRecipes() {

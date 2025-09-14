@@ -33,6 +33,8 @@ const RecipePage = () => {
     async function loadUser() {
       if (!recipe?.authorId) return;
       const data = await getSessionUser();
+      console.log(data);
+      
       setCurrentUser(data);
     }
     loadUser();

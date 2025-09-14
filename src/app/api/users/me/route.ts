@@ -21,6 +21,7 @@ export async function GET() {
       {
         userId: user._id.toString(),
         email: user.email,
+        savedRecipes: user.savedRecipes || [],
       },
       { status: 200 }
     );

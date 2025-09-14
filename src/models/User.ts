@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const UserSchema = new mongoose.Schema({
   email: {
@@ -9,6 +9,10 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+  },
+  savedRecipes: {
+    type: [String],
+    default: [],
   },
   createdAt: {
     type: Date,

@@ -4,13 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { IRecipe } from "@/types/RecipeItem";
-import { getUser, updateRecipeRating } from "@/lib/helpers/api";
+import { deleteRecipe, getSessionUser, getUser, saveRecipe, updateRecipeRating } from "@/lib/helpers/api";
 import Rating from "./Rating";
 import { useTranslations } from "next-intl";
+import { BookmarkCheck } from "lucide-react";
+import { FiBookmark } from "react-icons/fi";
 
 const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [authorName, setAuthorName] = useState<string>("");
+  const [isSaved, setIsSaved] = useState<boolean>(false);
+  const [isLoadingIsSaved, setIsLoadingIsSaved] = useState<boolean>(false);
   const t = useTranslations('RecipesPage')
   const [currentRating, setCurrentRating] = useState<number>(() => {
     const ratings = recipe.rating;
@@ -23,6 +27,19 @@ const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
     return 0;
   });
 
+  const handleSaveRecipe = async (recipeId: string) => {
+    setIsLoadingIsSaved(true);
+    if (isSaved) {
+      await deleteRecipe(recipeId);
+      setIsSaved(!isSaved);
+      setIsLoadingIsSaved(false);
+      return;
+    }
+    await saveRecipe(recipeId);
+    setIsSaved(!isSaved);
+    setIsLoadingIsSaved(false);
+  }
+
   useEffect(() => {
     async function loadUser() {
       try {
@@ -34,6 +51,20 @@ const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
     }
     loadUser();
   }, [recipe.authorId]);
+
+  useEffect(() => {
+    async function checkSavedRecipe() {
+      setIsLoadingIsSaved(true);
+      const session = await getSessionUser();
+      const data = await getUser(session.userId);
+      setIsSaved(data.savedRecipes.includes(recipe._id));
+      setIsLoadingIsSaved(false);
+    }
+    checkSavedRecipe();
+  }, [recipe._id])
+
+  console.log(isSaved);
+
 
   return (
     <div
@@ -56,12 +87,17 @@ const RecipeCard = ({ recipe }: { recipe: IRecipe }) => {
       </Link>
 
       <div className="p-3 sm:p-4">
-        {/* Title */}
-        <Link href={`/recipes/${recipe._id}`}>
-          <h2 className="text-lg sm:text-xl font-bold text-white hover:text-orange-400 transition line-clamp-2">
-            {recipe.title}
-          </h2>
-        </Link>
+        {/* Title and Save button*/}
+        <div className="flex justify-between items-start gap-2">
+          <Link href={`/recipes/${recipe._id}`} className="flex-1">
+            <h2 className="text-lg sm:text-xl font-bold text-white hover:text-orange-400 transition line-clamp-2">
+              {recipe.title}
+            </h2>
+          </Link>
+          <button onClick={() => handleSaveRecipe(recipe._id)}>
+            {isLoadingIsSaved ? <div className="text-orange-400 w-5 h-5 animate-spin border-2 border-orange-400 border-t-transparent rounded-full" /> : isSaved ? <BookmarkCheck className="text-orange-400" /> : <FiBookmark className="text-gray-400 w-6 h-6" />}
+          </button>
+        </div>
 
         {/* Rating */}
         <div className="mt-2 flex items-center">
