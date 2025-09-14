@@ -6,12 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 
 export default function LoginForm() {
+  const [showPassword, setShowPassword] = useState(false);
   const [isPending, startTransition] = useTransition();
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
@@ -46,7 +48,7 @@ export default function LoginForm() {
             <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
               {errorMessage}
             </div>
-          )}  
+          )}
 
           <form action={handleSubmit} className="space-y-6">
             <div className="space-y-2">
@@ -75,14 +77,23 @@ export default function LoginForm() {
                   {t("ForgotPassword")}
                 </Link>
               </div>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                required
-                placeholder="••••••••"
-                className="py-5 px-4 text-base rounded-xl text-black"
-              />
+              <div className="flex items-center">
+                <Input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  required
+                  placeholder="••••••••"
+                  className="py-5 px-4 text-base rounded-xl text-black"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className=""
+                >
+                  {showPassword ? <EyeOffIcon className="w-5 h-5 text-gray-500" /> : <EyeIcon className="w-5 h-5 text-gray-500" />}
+                </button>
+              </div>
             </div>
 
             <Button
